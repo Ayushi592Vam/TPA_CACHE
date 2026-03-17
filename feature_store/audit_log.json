@@ -1,0 +1,979 @@
+[
+  {
+    "event": "FILE_INGESTED",
+    "timestamp": "2026-03-17T12:22:26.473201",
+    "filename": "loss_runs.xlsx",
+    "file_hash": "923b27474c6e473037084d61490f493f9614f62ef0356c07af50933cae96d6eb",
+    "sheets": [
+      "CGL Loss Run",
+      "Workers Comp Loss Run",
+      "Commercial Auto Loss Run",
+      "Commercial Property Loss Run",
+      "Prof Liability E&O Loss Run"
+    ]
+  },
+  {
+    "event": "SHEET_PARSED",
+    "timestamp": "2026-03-17T12:22:27.458078",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "sheet_hash": "8e86b40ef33d63701144ef5919a6b2db54e5812506ff6fc69473a2dac3ac8c34",
+    "claim_rows": 10,
+    "sheet_type": "LOSS_RUN",
+    "total_rows": 14,
+    "total_cols": 12,
+    "col_renames": {
+      "Claim_id": "Claim Number",
+      "Date of Loss": "Loss Date",
+      "Date Reported": "Date Reported",
+      "Claimant Name": "Claimant Name",
+      "Description of Loss": "Description of Loss",
+      "Indemnity Paid": "Indemnity Paid",
+      "Medical Paid": "Medical Paid",
+      "Expense Paid": "Expense Paid",
+      "Total Paid": "Total Paid",
+      "Reserve": "Reserve",
+      "Total Incurred": "Total Incurred",
+      "Status": "Status"
+    }
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-17T12:24:07.862665",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "sheet_hash": "8e86b40ef33d63701144ef5919a6b2db54e5812506ff6fc69473a2dac3ac8c34"
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-17T12:30:20.330289",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "sheet_hash": "8e86b40ef33d63701144ef5919a6b2db54e5812506ff6fc69473a2dac3ac8c34"
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-17T12:35:00.297343",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "sheet_hash": "8e86b40ef33d63701144ef5919a6b2db54e5812506ff6fc69473a2dac3ac8c34"
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-17T12:35:02.695451",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-001",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "Slip & fall - wet floor at job site",
+    "cause_of_loss": "Slip and Fall",
+    "summary": "The claimant alleges that they slipped and fell on a wet floor at their job site."
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-17T12:35:46.131704",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-006",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "Bodily injury - scaffolding collapse",
+    "cause_of_loss": "Other - Workers Comp",
+    "summary": "The claimant alleges that they sustained a bodily injury due to a scaffolding collapse."
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-17T12:42:40.279783",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-005",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "Products liability - defective material",
+    "cause_of_loss": "Product Liability",
+    "summary": "The claimant alleges that they were harmed due to a defective material in a product."
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-17T12:59:17.187431",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "sheet_hash": "8e86b40ef33d63701144ef5919a6b2db54e5812506ff6fc69473a2dac3ac8c34"
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-17T12:59:19.527814",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-001",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "Slip & fall - wet floor at job site",
+    "cause_of_loss": "Slip and Fall",
+    "summary": "The claimant alleges that they slipped and fell on a wet floor at their job site."
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-17T14:10:28.185258",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "sheet_hash": "8e86b40ef33d63701144ef5919a6b2db54e5812506ff6fc69473a2dac3ac8c34"
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:10:28.233214",
+    "claim_id": "CGL-001",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:10:28.265021",
+    "claim_id": "CGL-002",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:10:28.280818",
+    "claim_id": "CGL-003",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:10:28.321676",
+    "claim_id": "CGL-004",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:10:28.345009",
+    "claim_id": "CGL-005",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:10:28.360938",
+    "claim_id": "CGL-006",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:10:28.392625",
+    "claim_id": "CGL-007",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:10:28.424280",
+    "claim_id": "CGL-008",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:10:28.440147",
+    "claim_id": "CGL-009",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:10:28.471847",
+    "claim_id": "CGL-010",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-17T14:10:30.732190",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-001",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "Slip & fall - wet floor at job site",
+    "cause_of_loss": "Slip and Fall",
+    "summary": "The claimant alleges that they slipped and fell on a wet floor at their job site."
+  },
+  {
+    "event": "FILE_INGESTED",
+    "timestamp": "2026-03-17T14:13:00.705695",
+    "filename": "loss_runs.xlsx",
+    "file_hash": "399019b287a7f5ad70330e900fc4f67db327d30f82b7bf82963de883c1b5813f",
+    "sheets": [
+      "CGL Loss Run",
+      "Workers Comp Loss Run",
+      "Commercial Auto Loss Run",
+      "Commercial Property Loss Run",
+      "Prof Liability E&O Loss Run"
+    ]
+  },
+  {
+    "event": "SHEET_PARSED",
+    "timestamp": "2026-03-17T14:13:02.174898",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "sheet_hash": "1975302483121bd5837966f7c4cd103d9d7a88fccb37c0c23649bb2058b0db28",
+    "claim_rows": 10,
+    "sheet_type": "LOSS_RUN",
+    "total_rows": 14,
+    "total_cols": 12,
+    "col_renames": {
+      "Claim_id": "Claim Number",
+      "Date of Loss": "Loss Date",
+      "Date Reported": "Date Reported",
+      "Claimant Name": "Claimant Name",
+      "Description of Loss": "Description of Loss",
+      "Indemnity Paid": "Indemnity Paid",
+      "Medical Paid": "Medical Paid",
+      "Expense Paid": "Expense Paid",
+      "Total Paid": "Total Paid",
+      "Reserve": "Reserve",
+      "Total Incurred": "Total Incurred",
+      "Status": "Status"
+    }
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:13:02.257265",
+    "claim_id": "CGL-001",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": [
+      "Claimant Name"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:13:02.297704",
+    "claim_id": "CGL-002",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:13:02.329448",
+    "claim_id": "CGL-003",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:13:02.359371",
+    "claim_id": "CGL-004",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:13:02.385681",
+    "claim_id": "CGL-005",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:13:02.409878",
+    "claim_id": "CGL-006",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:13:02.436694",
+    "claim_id": "CGL-007",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:13:02.465872",
+    "claim_id": "CGL-008",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:13:02.492857",
+    "claim_id": "CGL-009",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:13:02.516161",
+    "claim_id": "CGL-010",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-17T14:13:04.594983",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-001",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "Slip & fall - wet floor at job site",
+    "cause_of_loss": "Slip and Fall",
+    "summary": "The claimant alleges that they slipped and fell on a wet floor at their job site."
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-17T14:15:21.617902",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-003",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "Bodily injury - falling debris",
+    "cause_of_loss": "Falling Object",
+    "summary": "The claimant alleges that they sustained a bodily injury due to falling debris."
+  },
+  {
+    "event": "FIELD_EDITED",
+    "timestamp": "2026-03-17T14:15:45.872151",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-003",
+    "field": "Description of Loss",
+    "original": "Bodily injury - falling debris",
+    "new_value": "Bodily injury "
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-17T14:27:40.765485",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-005",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "Products liability - defective material",
+    "cause_of_loss": "Product Liability",
+    "summary": "The claimant alleges that they suffered damages due to a defective material in a product."
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-17T14:35:13.079721",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "sheet_hash": "1975302483121bd5837966f7c4cd103d9d7a88fccb37c0c23649bb2058b0db28"
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:35:13.111596",
+    "claim_id": "CGL-001",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:35:13.149007",
+    "claim_id": "CGL-002",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:35:13.191226",
+    "claim_id": "CGL-003",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:35:13.206886",
+    "claim_id": "CGL-004",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:35:13.239141",
+    "claim_id": "CGL-005",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:35:13.270764",
+    "claim_id": "CGL-006",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:35:13.295705",
+    "claim_id": "CGL-007",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:35:13.334266",
+    "claim_id": "CGL-008",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:35:13.368918",
+    "claim_id": "CGL-009",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:35:13.401947",
+    "claim_id": "CGL-010",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-17T14:35:15.713686",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-001",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "Slip & fall - wet floor at job site",
+    "cause_of_loss": "Slip and Fall",
+    "summary": "The claimant alleges that they slipped and fell on a wet floor at their job site."
+  },
+  {
+    "event": "FILE_INGESTED",
+    "timestamp": "2026-03-17T14:36:53.941329",
+    "filename": "loss_runs.xlsx",
+    "file_hash": "3877ae3e8d89478062ffc226ae0b33904e5170820859924475720654ef120d72",
+    "sheets": [
+      "CGL Loss Run",
+      "Workers Comp Loss Run",
+      "Commercial Auto Loss Run",
+      "Commercial Property Loss Run",
+      "Prof Liability E&O Loss Run"
+    ]
+  },
+  {
+    "event": "SHEET_PARSED",
+    "timestamp": "2026-03-17T14:36:55.383864",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "sheet_hash": "89b34c46da3bd36d259bb9225912bd025637ea9c16f1d3ac37fb9b1f3c814632",
+    "claim_rows": 10,
+    "sheet_type": "LOSS_RUN",
+    "total_rows": 14,
+    "total_cols": 12,
+    "col_renames": {
+      "Claim_id": "Claim Number",
+      "Date of Loss": "Loss Date",
+      "Date Reported": "Date Reported",
+      "Claimant Name": "Claimant Name",
+      "Description of Loss": "Description of Loss",
+      "Indemnity Paid": "Indemnity Paid",
+      "Medical Paid": "Medical Paid",
+      "Expense Paid": "Expense Paid",
+      "Total Paid": "Total Paid",
+      "Reserve": "Reserve",
+      "Total Incurred": "Total Incurred",
+      "Status": "Status"
+    }
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:36:55.469321",
+    "claim_id": "CGL-001",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": [
+      "Claimant Name"
+    ]
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:36:55.500658",
+    "claim_id": "CGL-002",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:36:55.532742",
+    "claim_id": "CGL-003",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:36:55.551738",
+    "claim_id": "CGL-004",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:36:55.586138",
+    "claim_id": "CGL-005",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:36:55.615920",
+    "claim_id": "CGL-006",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:36:55.636052",
+    "claim_id": "CGL-007",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:36:55.668242",
+    "claim_id": "CGL-008",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:36:55.701358",
+    "claim_id": "CGL-009",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:36:55.739651",
+    "claim_id": "CGL-010",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-17T14:36:57.718603",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-001",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "Slip & fall - wet floor at job site",
+    "cause_of_loss": "Slip and Fall",
+    "summary": "The claimant alleges that they slipped and fell on a wet floor at their job site."
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-17T14:50:16.063213",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "sheet_hash": "89b34c46da3bd36d259bb9225912bd025637ea9c16f1d3ac37fb9b1f3c814632"
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:50:16.095087",
+    "claim_id": "CGL-001",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:50:16.118544",
+    "claim_id": "CGL-002",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:50:16.170927",
+    "claim_id": "CGL-003",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:50:16.206724",
+    "claim_id": "CGL-004",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:50:16.254737",
+    "claim_id": "CGL-005",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:50:16.307427",
+    "claim_id": "CGL-006",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:50:16.344256",
+    "claim_id": "CGL-007",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:50:16.366476",
+    "claim_id": "CGL-008",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:50:16.398616",
+    "claim_id": "CGL-009",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:50:16.439841",
+    "claim_id": "CGL-010",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-17T14:50:18.639165",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-001",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "Slip & fall - wet floor at job site",
+    "cause_of_loss": "Slip and Fall",
+    "summary": "The claimant alleges that they slipped and fell on a wet floor at their job site."
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-17T14:50:48.394194",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "sheet_hash": "89b34c46da3bd36d259bb9225912bd025637ea9c16f1d3ac37fb9b1f3c814632"
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:50:48.425884",
+    "claim_id": "CGL-001",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:50:48.463150",
+    "claim_id": "CGL-002",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:50:48.490179",
+    "claim_id": "CGL-003",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:50:48.522282",
+    "claim_id": "CGL-004",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:50:48.554160",
+    "claim_id": "CGL-005",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:50:48.601573",
+    "claim_id": "CGL-006",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:50:48.649714",
+    "claim_id": "CGL-007",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:50:48.697559",
+    "claim_id": "CGL-008",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:50:48.729504",
+    "claim_id": "CGL-009",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T14:50:48.763522",
+    "claim_id": "CGL-010",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-17T14:50:50.944980",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-001",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "Slip & fall - wet floor at job site",
+    "cause_of_loss": "Slip and Fall",
+    "summary": "The claimant alleges that they slipped and fell due to a wet floor at their job site."
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-17T15:30:08.706245",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "sheet_hash": "89b34c46da3bd36d259bb9225912bd025637ea9c16f1d3ac37fb9b1f3c814632"
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T15:30:08.748135",
+    "claim_id": "CGL-001",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T15:30:08.790899",
+    "claim_id": "CGL-002",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T15:30:08.827150",
+    "claim_id": "CGL-003",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T15:30:08.860480",
+    "claim_id": "CGL-004",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T15:30:08.895728",
+    "claim_id": "CGL-005",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T15:30:08.924593",
+    "claim_id": "CGL-006",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T15:30:08.972176",
+    "claim_id": "CGL-007",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T15:30:09.004153",
+    "claim_id": "CGL-008",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T15:30:09.052424",
+    "claim_id": "CGL-009",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-17T15:30:09.084363",
+    "claim_id": "CGL-010",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-17T15:30:11.694448",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-001",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "Slip & fall - wet floor at job site",
+    "cause_of_loss": "Slip and Fall",
+    "summary": "The claimant alleges that they slipped and fell on a wet floor at their job site."
+  }
+]

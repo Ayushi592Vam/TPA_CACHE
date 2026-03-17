@@ -1,0 +1,35 @@
+{
+  "923b27474c6e473037084d61490f493f9614f62ef0356c07af50933cae96d6eb": {
+    "filename": "loss_runs.xlsx",
+    "first_seen": "2026-03-17T12:22:26.469200",
+    "sheet_hashes": {
+      "CGL Loss Run": "8e86b40ef33d63701144ef5919a6b2db54e5812506ff6fc69473a2dac3ac8c34",
+      "Workers Comp Loss Run": "0cf7acbc8312cee26594d8ec3fbb7f2635030d2802b4372264792f948973eeb2",
+      "Commercial Auto Loss Run": "87934a2a9f86f24e3c091e7fadcca9de0af721bca1f4a338e3ee32bf70239539",
+      "Commercial Property Loss Run": "5ba16142b8e6b0e9b0d81b65a4c56690d150becdb4bf60fabb2c15e20ecd7e49",
+      "Prof Liability E&O Loss Run": "b0c7a8f9b38b33a7a3ded43a48b4d8c0277e29671be1c9c90c2b82125920adaf"
+    }
+  },
+  "399019b287a7f5ad70330e900fc4f67db327d30f82b7bf82963de883c1b5813f": {
+    "filename": "loss_runs.xlsx",
+    "first_seen": "2026-03-17T14:13:00.675834",
+    "sheet_hashes": {
+      "CGL Loss Run": "1975302483121bd5837966f7c4cd103d9d7a88fccb37c0c23649bb2058b0db28",
+      "Workers Comp Loss Run": "0cf7acbc8312cee26594d8ec3fbb7f2635030d2802b4372264792f948973eeb2",
+      "Commercial Auto Loss Run": "87934a2a9f86f24e3c091e7fadcca9de0af721bca1f4a338e3ee32bf70239539",
+      "Commercial Property Loss Run": "5ba16142b8e6b0e9b0d81b65a4c56690d150becdb4bf60fabb2c15e20ecd7e49",
+      "Prof Liability E&O Loss Run": "b0c7a8f9b38b33a7a3ded43a48b4d8c0277e29671be1c9c90c2b82125920adaf"
+    }
+  },
+  "3877ae3e8d89478062ffc226ae0b33904e5170820859924475720654ef120d72": {
+    "filename": "loss_runs.xlsx",
+    "first_seen": "2026-03-17T14:36:53.922625",
+    "sheet_hashes": {
+      "CGL Loss Run": "89b34c46da3bd36d259bb9225912bd025637ea9c16f1d3ac37fb9b1f3c814632",
+      "Workers Comp Loss Run": "0cf7acbc8312cee26594d8ec3fbb7f2635030d2802b4372264792f948973eeb2",
+      "Commercial Auto Loss Run": "87934a2a9f86f24e3c091e7fadcca9de0af721bca1f4a338e3ee32bf70239539",
+      "Commercial Property Loss Run": "5ba16142b8e6b0e9b0d81b65a4c56690d150becdb4bf60fabb2c15e20ecd7e49",
+      "Prof Liability E&O Loss Run": "b0c7a8f9b38b33a7a3ded43a48b4d8c0277e29671be1c9c90c2b82125920adaf"
+    }
+  }
+}

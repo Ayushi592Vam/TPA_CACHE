@@ -1,0 +1,567 @@
+"""
+ui/claim_panel.py
+Middle column: claim header, schema/plain field rows, custom-field adder,
+and sheet-totals section.
+"""
+
+import datetime
+import re
+
+import streamlit as st
+
+from modules.audit import _append_audit
+from modules.field_history import _record_field_history, _get_field_history
+from modules.normalization import _best_standard_name, auto_normalize_field
+from modules.dup_detection import _field_dup_confidence
+from modules.schema_mapping import get_val, map_claim_to_schema
+from ui.field_row import render_field_row
+from ui.dialogs import show_eye_popup, show_field_history_dialog
+from ui.claim_dup_panel import render_claim_dup_panel
+
+
+# ── Column-header HTML helper ─────────────────────────────────────────────────
+
+def _col_hdr(label: str) -> str:
+    return (
+        f"<div style='font-size:var(--sz-xs);font-weight:700;color:var(--t1);"
+        f"text-transform:uppercase;letter-spacing:1.4px;font-family:var(--font-head);"
+        f"padding-bottom:5px;border-bottom:1px solid var(--b0);margin-bottom:5px;'>"
+        f"{label}</div>"
+    )
+
+
+# ── Schema mode ───────────────────────────────────────────────────────────────
+
+def _render_schema_mode(
+    curr_claim, curr_claim_id, active, selected_sheet,
+    excel_path, uploaded_name, SCHEMAS,
+    _llm_map_result, _field_dup_index, _claim_dup_results,
+    use_conf, conf_thresh, active_schema,
+):
+    schema_def    = SCHEMAS[active_schema]
+    mapped        = map_claim_to_schema(curr_claim, active_schema, active.get("title_fields", {}), _llm_map_result)
+    custom_flds   = st.session_state.get(f"custom_fields_{active_schema}", [])
+    display_flds  = list(schema_def["required_fields"]) + [
+        f for f in custom_flds if f not in schema_def["required_fields"]
+    ]
+    low_conf  = [sf for sf in display_flds if sf in mapped and mapped[sf]["confidence"] < conf_thresh and use_conf]
+    missing   = [sf for sf in schema_def["required_fields"] if sf not in mapped]
+
+    if missing:
+        st.markdown(
+            f"<div style='background:var(--red-g);border:1px solid rgba(248,113,113,0.3);"
+            f"border-radius:6px;padding:8px 12px;margin-bottom:8px;font-size:var(--sz-body);"
+            f"color:var(--red);font-family:var(--font);'>"
+            f"⚠ {len(missing)} mandatory field(s) not mapped: {', '.join(missing)}</div>",
+            unsafe_allow_html=True,
+        )
+    if low_conf:
+        st.markdown(
+            f"<div style='background:var(--yellow-g);border:1px solid rgba(245,200,66,0.3);"
+            f"border-radius:6px;padding:8px 12px;margin-bottom:8px;font-size:var(--sz-body);"
+            f"color:var(--yellow);font-family:var(--font);'>"
+            f"⚡ {len(low_conf)} field(s) below threshold ({conf_thresh}%): {', '.join(low_conf)}</div>",
+            unsafe_allow_html=True,
+        )
+
+    # Header row
+    if use_conf:
+        hc = st.columns([1.8, 1.4, 1.6, 1.8, 0.45, 0.45, 0.45, 0.40], gap="small")
+        for ci, lbl in enumerate(["Schema Field", "Confidence", "Extracted", "Modified"]):
+            with hc[ci]: st.markdown(_col_hdr(lbl), unsafe_allow_html=True)
+    else:
+        hc = st.columns([1.8, 1.8, 1.8, 0.45, 0.45, 0.45, 0.40], gap="small")
+        for ci, lbl in enumerate(["Schema Field", "Extracted", "Modified"]):
+            with hc[ci]: st.markdown(_col_hdr(lbl), unsafe_allow_html=True)
+
+    for schema_field in display_flds:
+        if schema_field not in mapped:
+            is_req = schema_field in schema_def["required_fields"]
+            _bg, _br, _fc, _lbl = (
+                ("var(--red-g)",  "rgba(248,113,113,0.3)", "var(--red)",  "MANDATORY · NOT FOUND")
+                if is_req else
+                ("var(--s0)",     "var(--b0)",              "var(--t3)", "OPTIONAL · NOT IN SHEET")
+            )
+            st.markdown(
+                f"<div style='display:flex;align-items:center;gap:8px;background:{_bg};"
+                f"border:1px solid {_br};border-radius:6px;padding:6px 10px;margin:2px 0;'>"
+                f"<span style='color:{_fc};font-size:var(--sz-sm);font-weight:700;"
+                f"text-transform:uppercase;font-family:var(--font);'>{schema_field}</span>"
+                f"<span style='background:var(--s1);color:{_fc};font-size:9px;border-radius:4px;"
+                f"padding:1px 5px;border:1px solid {_br};font-family:var(--mono);'>{_lbl}</span></div>",
+                unsafe_allow_html=True,
+            )
+            continue
+
+        m             = mapped[schema_field]
+        conf          = m["confidence"]
+        excel_f       = m["excel_field"]
+        info          = m["info"]
+        is_req        = m["is_required"]
+        is_title_src  = m.get("from_title", False)
+        is_llm_mapped = m.get("llm_mapped", False)
+
+        ek = f"edit_{selected_sheet}_{curr_claim_id}_schema_{schema_field}"
+        mk = f"mod_{selected_sheet}_{curr_claim_id}_schema_{schema_field}"
+        xk = f"chk_{selected_sheet}_{curr_claim_id}_schema_{schema_field}"
+
+        _cur_val = st.session_state.get(mk, info.get("modified", info["value"])) or ""
+        dup_conf, dup_others = _field_dup_confidence(_cur_val, excel_f, _field_dup_index)
+
+        render_field_row(
+            schema_field=schema_field, info=info,
+            mk=mk, ek=ek, xk=xk,
+            is_req=is_req, conf=conf, excel_f=excel_f,
+            is_title_sourced=is_title_src, is_llm_mapped=is_llm_mapped,
+            dup_conf=dup_conf, dup_others=dup_others,
+            selected_sheet=selected_sheet, curr_claim_id=curr_claim_id,
+            active=active, excel_path=excel_path, uploaded_name=uploaded_name,
+            active_schema=active_schema,
+            use_conf=use_conf, conf_thresh=conf_thresh,
+            open_eye_popup=show_eye_popup,
+            open_history_dialog=show_field_history_dialog,
+        )
+
+
+# ── Plain mode ────────────────────────────────────────────────────────────────
+
+def _render_plain_mode(
+    curr_claim, curr_claim_id, active, selected_sheet,
+    excel_path, uploaded_name,
+    _llm_map_result, _field_dup_index, _claim_dup_results,
+    use_conf, conf_thresh,
+):
+    _plain_col_rename = active.get("col_rename_log", {})
+    _llm_plain_map    = {}
+    if not _plain_col_rename and active.get("data"):
+        from modules.schema_mapping import _has_unknown_fields, llm_map_unknown_fields
+        from modules.llm import _llm_available
+        _llm_plain_cache_key = f"_llm_fieldmap_{selected_sheet}_plain"
+        if _llm_available():
+            _llm_plain_result = st.session_state.get(_llm_plain_cache_key)
+            if _llm_plain_result is None:
+                if _has_unknown_fields(list(active["data"][0].keys()), "Guidewire"):
+                    _llm_plain_result = llm_map_unknown_fields(
+                        active["data"][:5], "Guidewire", selected_sheet + "_plain"
+                    )
+                    st.session_state[_llm_plain_cache_key] = _llm_plain_result or {}
+                else:
+                    st.session_state[_llm_plain_cache_key] = {}
+            _llm_plain_map = (st.session_state.get(_llm_plain_cache_key) or {}).get("mappings", {})
+
+    def _display_field_name(raw_col: str) -> tuple[str, bool, bool]:
+        if raw_col in _plain_col_rename:
+            return _plain_col_rename[raw_col], True, False
+        if raw_col in _llm_plain_map:
+            return _llm_plain_map[raw_col], False, True
+        std = _best_standard_name(raw_col)
+        if std:
+            return std, True, False
+        return raw_col, False, False
+
+    from modules.schema_mapping import _value_quality_score
+
+    def _plain_conf(field_display: str, val: str) -> int:
+        if not val:
+            return 0
+        return round(_value_quality_score(val, field_display) * 100)
+
+    # Headers
+    if use_conf:
+        hc = st.columns([1.8, 1.2, 1.8, 1.8, 0.5, 0.5, 0.5, 0.4])
+        for ci, lbl in enumerate(["Field", "Conf", "Extracted", "Modified"]):
+            with hc[ci]: st.markdown(_col_hdr(lbl), unsafe_allow_html=True)
+    else:
+        hc = st.columns([2, 2.4, 2.4, 0.5, 0.5, 0.5, 0.5])
+        for ci, lbl in enumerate(["Field", "Extracted Value", "Modified Value"]):
+            with hc[ci]: st.markdown(_col_hdr(lbl), unsafe_allow_html=True)
+
+    for field, info in curr_claim.items():
+        ek = f"edit_{selected_sheet}_{curr_claim_id}_{field}"
+        xk = f"chk_{selected_sheet}_{curr_claim_id}_{field}"
+        mk = f"mod_{selected_sheet}_{curr_claim_id}_{field}"
+        if ek not in st.session_state: st.session_state[ek] = False
+        if xk not in st.session_state: st.session_state[xk] = True
+        if mk not in st.session_state: st.session_state[mk] = info.get("modified", info["value"])
+
+        _cur_val_p              = st.session_state.get(mk, info.get("modified", info["value"])) or ""
+        dup_conf_p, dup_others_p = _field_dup_confidence(_cur_val_p, field, _field_dup_index)
+        _dup_badge_p = (
+            f"<span class='dup-field-badge' title='Same value in {len(dup_others_p)} claim(s)'>"
+            f"DUP·{dup_conf_p}%</span>"
+            if dup_conf_p > 0 else ""
+        )
+        _dot_p = "<span style='color:var(--yellow);margin-left:4px;font-size:8px;'>●</span>" if _cur_val_p != info["value"] else ""
+
+        disp_name, _was_rule, _was_llm = _display_field_name(field)
+        _renamed_badge  = ""
+        _orig_raw_title = ""
+        if _was_rule and disp_name != field:
+            _renamed_badge  = (
+                f"<span style='font-size:9px;background:rgba(52,211,153,0.12);"
+                f"border:1px solid rgba(52,211,153,0.3);border-radius:3px;color:#34d399;"
+                f"padding:0 4px;margin-left:3px;font-family:monospace;' "
+                f"title='Standardised from: {field}'>STD</span>"
+            )
+            _orig_raw_title = field
+        elif _was_llm and disp_name != field:
+            _renamed_badge  = (
+                f"<span style='font-size:9px;background:rgba(245,200,66,0.10);"
+                f"border:1px solid rgba(245,200,66,0.3);border-radius:3px;color:#f5c842;"
+                f"padding:0 4px;margin-left:3px;font-family:monospace;' "
+                f"title='AI-mapped from: {field}'>AI</span>"
+            )
+            _orig_raw_title = field
+
+        _plain_field_label = (
+            f"<div style='min-height:40px;display:flex;flex-direction:column;justify-content:center;'>"
+            f"<div style='color:var(--t0);font-size:var(--sz-body);font-weight:600;"
+            f"text-transform:uppercase;letter-spacing:0.8px;font-family:var(--font-head);"
+            f"display:flex;align-items:center;flex-wrap:wrap;gap:2px;'>"
+            f"{disp_name}{_renamed_badge}{_dot_p}{_dup_badge_p}</div>"
+            + (
+                f"<div style='font-size:9px;color:var(--t4);font-family:monospace;"
+                f"margin-top:1px;'>raw: {_orig_raw_title}</div>"
+                if _orig_raw_title else ""
+            )
+            + "</div>"
+        )
+
+        _pconf     = _plain_conf(disp_name, _cur_val_p) if use_conf else 0
+        _pconf_col = (
+            "var(--green)" if _pconf >= 80 else "var(--yellow)" if _pconf >= 50 else "var(--red)"
+        )
+        _pconf_html = (
+            f"<div style='min-height:40px;display:flex;flex-direction:column;"
+            f"justify-content:center;gap:4px;'>"
+            f"<span style='background:{_pconf_col}20;border:1px solid {_pconf_col};"
+            f"border-radius:20px;padding:2px 8px;font-size:11px;color:{_pconf_col};"
+            f"font-weight:600;font-family:monospace;'>{_pconf}%</span>"
+            f"<div style='background:var(--s1);border-radius:4px;height:4px;width:80%;'>"
+            f"<div style='background:{_pconf_col};height:4px;border-radius:4px;width:{_pconf}%;'>"
+            f"</div></div></div>"
+        ) if use_conf else ""
+
+        def _plain_edit_col(_field=field, _mk=mk, _ek=ek):
+            _plain_display_val = st.session_state.get(_mk, info.get("modified", info["value"])) or ""
+            if st.session_state[_ek]:
+                with st.form(
+                    key=f"form_{selected_sheet}_{curr_claim_id}_{_field}", border=False
+                ):
+                    nv        = st.text_input("m", value=_plain_display_val, label_visibility="collapsed")
+                    submitted = st.form_submit_button("", use_container_width=False)
+                    if submitted:
+                        old_val = _plain_display_val
+                        st.session_state[_mk] = nv
+                        active["data"][st.session_state.selected_idx][_field]["modified"] = nv
+                        st.session_state[_ek] = False
+                        _record_field_history(selected_sheet, curr_claim_id, _field, old_val, nv)
+                        _append_audit({
+                            "event":     "FIELD_EDITED",
+                            "timestamp": datetime.datetime.now().isoformat(),
+                            "filename":  uploaded_name,
+                            "sheet":     selected_sheet,
+                            "claim_id":  curr_claim_id,
+                            "field":     _field,
+                            "original":  info["value"],
+                            "new_value": nv,
+                        })
+                        st.rerun()
+            else:
+                st.text_input(
+                    "m", value=_plain_display_val,
+                    key=f"disp_plain_{_mk}", label_visibility="collapsed", disabled=True,
+                )
+            active["data"][st.session_state.selected_idx][_field]["modified"] = _plain_display_val
+
+        _hist_p  = _get_field_history(selected_sheet, curr_claim_id, field)
+        _hlbl_p  = f"⏱({len(_hist_p)})" if _hist_p else "⏱"
+
+        if use_conf:
+            cl, cc, co, cm, ce, cb, ch, cx = st.columns([1.8, 1.2, 1.8, 1.8, 0.5, 0.5, 0.5, 0.4], gap="small")
+            with cl: st.markdown(_plain_field_label, unsafe_allow_html=True)
+            with cc: st.markdown(_pconf_html, unsafe_allow_html=True)
+            with co:
+                st.text_input(
+                    "o", value=info["value"],
+                    key=f"orig_{selected_sheet}_{curr_claim_id}_{field}",
+                    label_visibility="collapsed", disabled=True,
+                )
+            with cm: _plain_edit_col()
+            with ce:
+                if st.button("👁", key=f"eye_{selected_sheet}_{curr_claim_id}_{field}", use_container_width=True):
+                    show_eye_popup(field, info, excel_path, selected_sheet)
+            with cb:
+                if not st.session_state[ek]:
+                    if st.button("✏", key=f"ed_{selected_sheet}_{curr_claim_id}_{field}", use_container_width=True):
+                        st.session_state[ek] = True; st.rerun()
+                else:
+                    st.markdown("<div style='height:38px;display:flex;align-items:center;justify-content:center;color:var(--green);font-size:11px;border:1px solid var(--b0);border-radius:6px;'>↵</div>", unsafe_allow_html=True)
+            with ch:
+                if st.button(_hlbl_p, key=f"hist_{selected_sheet}_{curr_claim_id}_{field}", use_container_width=True):
+                    show_field_history_dialog(
+                        field, selected_sheet, curr_claim_id,
+                        st.session_state.get(mk, info.get("modified", info["value"])), info["value"],
+                    )
+            with cx:
+                st.markdown("<div style='height:8px;'></div>", unsafe_allow_html=True)
+                st.checkbox("", key=xk, label_visibility="collapsed")
+        else:
+            cl, co, cm, ce, cb, ch, cx = st.columns([2, 2.4, 2.4, 0.5, 0.5, 0.5, 0.5], gap="small")
+            with cl: st.markdown(_plain_field_label, unsafe_allow_html=True)
+            with co:
+                st.text_input(
+                    "o", value=info["value"],
+                    key=f"orig_{selected_sheet}_{curr_claim_id}_{field}",
+                    label_visibility="collapsed", disabled=True,
+                )
+            with cm: _plain_edit_col()
+            with ce:
+                if st.button("👁", key=f"eye_{selected_sheet}_{curr_claim_id}_{field}", use_container_width=True):
+                    show_eye_popup(field, info, excel_path, selected_sheet)
+            with cb:
+                if not st.session_state[ek]:
+                    if st.button("✏", key=f"ed_{selected_sheet}_{curr_claim_id}_{field}", use_container_width=True):
+                        st.session_state[ek] = True; st.rerun()
+                else:
+                    st.markdown("<div style='height:38px;display:flex;align-items:center;justify-content:center;color:var(--green);font-size:11px;border:1px solid var(--b0);border-radius:6px;'>↵</div>", unsafe_allow_html=True)
+            with ch:
+                if st.button(_hlbl_p, key=f"hist_{selected_sheet}_{curr_claim_id}_{field}", use_container_width=True):
+                    show_field_history_dialog(
+                        field, selected_sheet, curr_claim_id,
+                        st.session_state.get(mk, info.get("modified", info["value"])), info["value"],
+                    )
+            with cx:
+                st.markdown("<div style='height:8px;'></div>", unsafe_allow_html=True)
+                st.checkbox("", key=xk, label_visibility="collapsed")
+
+
+# ── Custom field adder ────────────────────────────────────────────────────────
+
+def _render_custom_field_adder(curr_claim_id, selected_sheet, uploaded_name):
+    _user_fields_key = f"user_added_fields_{selected_sheet}_{curr_claim_id}"
+    _add_counter_key = f"add_field_counter_{selected_sheet}_{curr_claim_id}"
+    if _user_fields_key not in st.session_state: st.session_state[_user_fields_key] = []
+    if _add_counter_key not in st.session_state: st.session_state[_add_counter_key] = 0
+    _ctr = st.session_state[_add_counter_key]
+
+    st.markdown("<hr>", unsafe_allow_html=True)
+    st.markdown(
+        "<div style='display:flex;align-items:center;gap:10px;margin-bottom:10px;'>"
+        "<span style='font-size:var(--sz-xs);font-weight:600;color:var(--purple);"
+        "text-transform:uppercase;letter-spacing:2px;font-family:var(--mono);'>+ Add Custom Field</span>"
+        "<span style='flex:1;height:1px;background:linear-gradient(90deg,"
+        "rgba(167,139,250,0.4),transparent);'></span></div>",
+        unsafe_allow_html=True,
+    )
+
+    _user_fields = st.session_state[_user_fields_key]
+    if _user_fields:
+        uc1, uc2, uc3, uc4 = st.columns([2, 3, 0.6, 0.6])
+        with uc1:
+            st.markdown(
+                "<div style='font-size:var(--sz-xs);font-weight:600;color:var(--t3);"
+                "text-transform:uppercase;letter-spacing:1.6px;font-family:var(--mono);"
+                "padding-bottom:5px;border-bottom:1px solid var(--b0);margin-bottom:6px;'>"
+                "Custom Field</div>",
+                unsafe_allow_html=True,
+            )
+        with uc2:
+            st.markdown(
+                "<div style='font-size:var(--sz-xs);font-weight:600;color:var(--t3);"
+                "text-transform:uppercase;letter-spacing:1.6px;font-family:var(--mono);"
+                "padding-bottom:5px;border-bottom:1px solid var(--b0);margin-bottom:6px;'>"
+                "Value</div>",
+                unsafe_allow_html=True,
+            )
+
+        for uf_idx, uf in enumerate(_user_fields):
+            uf_name = uf["name"]
+            uf_mk   = f"uf_mod_{selected_sheet}_{curr_claim_id}_{uf_name}_{uf_idx}"
+            uf_ek   = f"uf_edit_{selected_sheet}_{curr_claim_id}_{uf_name}_{uf_idx}"
+            if uf_mk not in st.session_state: st.session_state[uf_mk] = uf.get("value", "")
+            if uf_ek not in st.session_state: st.session_state[uf_ek] = False
+            uc1b, uc2b, uc3b, uc4b = st.columns([2, 3, 0.6, 0.6], gap="small")
+            with uc1b:
+                st.markdown(
+                    f"<div style='min-height:40px;display:flex;align-items:center;gap:4px;"
+                    f"color:var(--purple);font-size:var(--sz-xs);font-weight:600;"
+                    f"text-transform:uppercase;letter-spacing:1px;font-family:var(--mono);'>"
+                    f"{uf_name}</div>",
+                    unsafe_allow_html=True,
+                )
+            with uc2b:
+                if st.session_state[uf_ek]:
+                    with st.form(key=f"uf_form_{selected_sheet}_{curr_claim_id}_{uf_name}_{uf_idx}", border=False):
+                        new_uf_val = st.text_input("v", value=st.session_state[uf_mk], label_visibility="collapsed")
+                        if st.form_submit_button("", use_container_width=False):
+                            st.session_state[uf_mk] = new_uf_val
+                            st.session_state[_user_fields_key][uf_idx]["value"] = new_uf_val
+                            st.session_state[uf_ek] = False; st.rerun()
+                else:
+                    st.text_input("v", key=uf_mk, label_visibility="collapsed", disabled=True)
+                    st.session_state[_user_fields_key][uf_idx]["value"] = st.session_state.get(uf_mk, "")
+            with uc3b:
+                if not st.session_state[uf_ek]:
+                    if st.button("✏", key=f"uf_ed_{selected_sheet}_{curr_claim_id}_{uf_name}_{uf_idx}", use_container_width=True):
+                        st.session_state[uf_ek] = True; st.rerun()
+                else:
+                    st.markdown("<div style='height:38px;display:flex;align-items:center;justify-content:center;color:var(--green);font-size:11px;border:1px solid var(--b0);border-radius:6px;'>↵</div>", unsafe_allow_html=True)
+            with uc4b:
+                if st.button("🗑", key=f"uf_del_{selected_sheet}_{curr_claim_id}_{uf_name}_{uf_idx}", use_container_width=True):
+                    st.session_state[_user_fields_key].pop(uf_idx); st.rerun()
+        st.markdown("<div style='height:4px;'></div>", unsafe_allow_html=True)
+
+    st.markdown("<div class='add-field-panel'>", unsafe_allow_html=True)
+    af1, af2, af3 = st.columns([1.8, 2.5, 0.8], gap="small")
+    with af1:
+        new_field_name = st.text_input(
+            "Field name",
+            key=f"nf_name_{selected_sheet}_{curr_claim_id}_{_ctr}",
+            placeholder="e.g. Internal Notes",
+            label_visibility="collapsed",
+        )
+    with af2:
+        new_field_value = st.text_input(
+            "Field value",
+            key=f"nf_val_{selected_sheet}_{curr_claim_id}_{_ctr}",
+            placeholder="Enter value…",
+            label_visibility="collapsed",
+        )
+    with af3:
+        if st.button(
+            "＋ Add",
+            key=f"add_field_go_{selected_sheet}_{curr_claim_id}_{_ctr}",
+            use_container_width=True,
+            type="primary",
+        ):
+            fname = new_field_name.strip()
+            if fname:
+                existing_names = {f["name"] for f in st.session_state[_user_fields_key]}
+                if fname not in existing_names:
+                    st.session_state[_user_fields_key].append({"name": fname, "value": new_field_value.strip()})
+                    st.session_state[_add_counter_key] = _ctr + 1
+                    _append_audit({
+                        "event":     "FIELD_ADDED",
+                        "timestamp": datetime.datetime.now().isoformat(),
+                        "filename":  uploaded_name,
+                        "sheet":     selected_sheet,
+                        "claim_id":  curr_claim_id,
+                        "field":     fname,
+                        "value":     new_field_value.strip(),
+                    })
+                    st.rerun()
+                else:
+                    st.warning(f"Field '{fname}' already exists.")
+            else:
+                st.warning("Please enter a field name.")
+    st.markdown("</div>", unsafe_allow_html=True)
+
+
+# ── Main render function ──────────────────────────────────────────────────────
+
+def render_claim_panel(
+    *,
+    curr_claim, curr_claim_id, active,
+    selected_sheet, excel_path, merged_meta, totals_data,
+    title_fields, uploaded_name, SCHEMAS,
+    _llm_map_result, _field_dup_index, _claim_dup_results,
+):
+    use_conf    = st.session_state.get("use_conf_threshold", False)
+    conf_thresh = st.session_state.get("conf_threshold", 80) if use_conf else 0
+    active_schema = st.session_state.get("active_schema", None)
+
+    # Sheet title banner
+    sorted_titles = sorted(
+        [(k, v) for k, v in merged_meta.items() if v.get("value")],
+        key=lambda x: (x[1]["row_start"], x[1]["col_start"]),
+    )
+    if sorted_titles:
+        main_title_val = sub_title_val = ""
+        for _, m in sorted_titles:
+            if m["type"] == "TITLE":
+                if not main_title_val:   main_title_val = m["value"]
+                elif not sub_title_val:  sub_title_val  = m["value"]
+        if main_title_val or sub_title_val:
+            st.markdown(
+                f"<div class='sheet-title-banner'>"
+                f"<div class='sheet-title-label'>Sheet Title</div>"
+                f"<div class='sheet-title-value'>{main_title_val}</div>"
+                + (f"<div class='sheet-subtitle-val'>{sub_title_val}</div>" if sub_title_val else "")
+                + "</div>",
+                unsafe_allow_html=True,
+            )
+
+    # Claim header
+    head_left, head_right = st.columns([3, 1])
+    with head_left:
+        st.markdown("<p class='section-lbl'>Review Details</p>", unsafe_allow_html=True)
+        h_name   = get_val(curr_claim, ["Insured Name", "Name", "Claimant", "TPA_NAME"], "Unknown Entity")
+        h_date   = get_val(curr_claim, ["Loss Date", "Date", "LOSS_DATE"], "N/A")
+        h_status = get_val(curr_claim, ["Status", "CLAIM_STATUS"], "Submitted")
+        h_total  = get_val(curr_claim, ["Total Incurred", "Incurred", "Total", "Amount", "TOTAL_INCURRED"], "$0")
+        st.markdown(
+            f"<div class='mid-header-title'>{curr_claim_id}</div>"
+            f"<div class='mid-header-sub'>{h_name} — {h_date}</div>"
+            f"<div class='mid-header-status'>{h_status}</div>"
+            f"<div class='incurred-label'>Total Incurred</div>"
+            f"<div class='incurred-amount'>{h_total}</div>",
+            unsafe_allow_html=True,
+        )
+    with head_right:
+        st.markdown("<p class='section-lbl' style='text-align:right;'>Export Selection</p>", unsafe_allow_html=True)
+        b1, b2 = st.columns([1, 1])
+        with b1:
+            if st.button("✔ All", key=f"all_{selected_sheet}_{curr_claim_id}", use_container_width=True):
+                for fld in curr_claim:
+                    st.session_state[f"chk_{selected_sheet}_{curr_claim_id}_{fld}"] = True
+                st.rerun()
+        with b2:
+            if st.button("✘ None", key=f"none_{selected_sheet}_{curr_claim_id}", use_container_width=True):
+                for fld in curr_claim:
+                    st.session_state[f"chk_{selected_sheet}_{curr_claim_id}_{fld}"] = False
+                st.rerun()
+
+    st.markdown("<hr>", unsafe_allow_html=True)
+
+    # Claim-level duplicate panel
+    render_claim_dup_panel(curr_claim_id, _claim_dup_results)
+
+    # Field grid
+    if active_schema and active_schema in SCHEMAS:
+        _render_schema_mode(
+            curr_claim, curr_claim_id, active, selected_sheet,
+            excel_path, uploaded_name, SCHEMAS,
+            _llm_map_result, _field_dup_index, _claim_dup_results,
+            use_conf, conf_thresh, active_schema,
+        )
+    else:
+        _render_plain_mode(
+            curr_claim, curr_claim_id, active, selected_sheet,
+            excel_path, uploaded_name,
+            _llm_map_result, _field_dup_index, _claim_dup_results,
+            use_conf, conf_thresh,
+        )
+
+    # Custom field adder
+    _render_custom_field_adder(curr_claim_id, selected_sheet, uploaded_name)
+
+    # Totals section
+    if totals_data:
+        st.markdown("<hr>", unsafe_allow_html=True)
+        st.markdown("<p class='section-lbl'>Sheet Totals</p>", unsafe_allow_html=True)
+        agg = totals_data.get("aggregated", {})
+        if agg:
+            t_cols = st.columns(min(4, len(agg)))
+            for idx, (k, v) in enumerate(agg.items()):
+                with t_cols[idx % len(t_cols)]:
+                    st.markdown(
+                        f"<div style='background:var(--s0);border:1px solid var(--b0);"
+                        f"border-top:2px solid var(--green);border-radius:8px;"
+                        f"padding:10px 14px;margin-bottom:8px;'>"
+                        f"<div style='font-size:var(--sz-xs);color:var(--t2);"
+                        f"text-transform:uppercase;font-family:var(--mono);letter-spacing:0.8px;'>{k}</div>"
+                        f"<div style='font-size:var(--sz-body);font-weight:700;color:var(--green);"
+                        f"font-family:var(--mono);margin-top:2px;'>{v:,.2f}</div></div>",
+                        unsafe_allow_html=True,
+                    )
