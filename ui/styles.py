@@ -229,5 +229,43 @@ div[role="tooltip"] div{
     font-size:12px!important;
 }
 
+/* ── Selectbox / Dropdown dark theme fix ── */
+div[data-baseweb="select"] > div{
+    background-color:var(--s1)!important;
+    border:1px solid var(--b1)!important;
+    border-radius:var(--radius)!important;
+    color:var(--t0)!important;
+}
+div[data-baseweb="select"] > div:focus-within{
+    border-color:var(--blue)!important;
+    box-shadow:0 0 0 3px rgba(79,156,249,.12)!important;
+}
+/* Dropdown menu list (the white popup) */
+ul[data-baseweb="menu"]{
+    background-color:var(--s1)!important;
+    border:1px solid var(--b1)!important;
+    border-radius:var(--radius)!important;
+}
+li[role="option"]{
+    background-color:var(--s1)!important;
+    color:var(--t0)!important;
+}
+li[role="option"]:hover,
+li[role="option"][aria-selected="true"]{
+    background-color:var(--blue-g)!important;
+    color:var(--t0)!important;
+}
+li[role="option"] span,
+li[role="option"] div{
+    color:var(--t0)!important;
+    -webkit-text-fill-color:var(--t0)!important;
+}
+/* Popover/listbox container */
+div[data-baseweb="popover"] div,
+div[data-baseweb="popover"] ul{
+    background-color:var(--s1)!important;
+    border-color:var(--b1)!important;
+}
+
 </style>
 """
