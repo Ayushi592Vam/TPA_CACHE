@@ -5,6 +5,7 @@ title-field extraction, and LLM-assisted field-map.
 """
 
 import re
+import datetime
 
 import streamlit as st
 
@@ -12,7 +13,23 @@ from config.settings import MIN_HEADER_MATCH
 from modules.audit import _append_audit
 from modules.llm import _llm_available, _llm_call
 
-import datetime
+
+# ── Date parsing helper ───────────────────────────────────────────────────────
+
+_DATE_PARSE_FORMATS = [
+    "%m/%d/%Y", "%d/%m/%Y", "%Y-%m-%d", "%d-%m-%Y",
+    "%m-%d-%Y", "%d.%m.%Y", "%Y/%m/%d", "%B %d, %Y", "%b %d, %Y",
+]
+
+def _try_parse_date(value: str):
+    """Try to parse a date string. Returns datetime.date or None."""
+    v = str(value).strip()
+    for fmt in _DATE_PARSE_FORMATS:
+        try:
+            return datetime.datetime.strptime(v, fmt).date()
+        except ValueError:
+            continue
+    return None
 
 
 # ── Utility ───────────────────────────────────────────────────────────────────
@@ -221,6 +238,35 @@ def map_claim_to_schema(
                 "from_title":   True,
                 "llm_mapped":   False,
             }
+
+    # ── Cross-field date validation ──────────────────────────────────────────
+    # Rule: Date Reported must be on or after Loss Date.
+    # If violated, flag both fields with a warning and lower their confidence.
+    _date_pairs = [
+        ("Loss Date",    "Date Reported"),   # reported >= loss
+        ("Loss Date",    "Date Closed"),     # closed   >= loss
+        ("Date Reported","Date Closed"),     # closed   >= reported
+    ]
+    for earlier_field, later_field in _date_pairs:
+        if earlier_field not in result or later_field not in result:
+            continue
+        _early_val = result[earlier_field].get("value", "")
+        _late_val  = result[later_field].get("value", "")
+        _early_dt  = _try_parse_date(_early_val)
+        _late_dt   = _try_parse_date(_late_val)
+        if _early_dt and _late_dt and _late_dt < _early_dt:
+            # Date order violation detected — flag both fields
+            _warn_msg = (
+                f"⚠ Date order conflict: '{later_field}' ({_late_val}) "
+                f"is before '{earlier_field}' ({_early_val}). "
+                f"Please verify these fields are mapped correctly."
+            )
+            # Lower confidence on both fields to draw reviewer attention
+            result[earlier_field]["confidence"]    = max(10, result[earlier_field]["confidence"] - 30)
+            result[later_field]["confidence"]      = max(10, result[later_field]["confidence"] - 30)
+            # Add warning flag to both fields
+            result[earlier_field]["date_order_warning"] = _warn_msg
+            result[later_field]["date_order_warning"]   = _warn_msg
 
     return result
 

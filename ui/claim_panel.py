@@ -63,6 +63,22 @@ def _render_schema_mode(
             unsafe_allow_html=True,
         )
 
+    # ── Date order conflict warnings ─────────────────────────────────────────
+    _date_warnings_shown = set()
+    for _sf, _mdata in mapped.items():
+        _warn = _mdata.get("date_order_warning")
+        if _warn and _warn not in _date_warnings_shown:
+            st.markdown(
+                f"<div style='background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.35);"
+                f"border-left:4px solid #f87171;border-radius:7px;padding:10px 14px;margin-bottom:8px;'>"
+                f"<div style='font-size:11px;font-weight:700;color:#f87171;font-family:monospace;"
+                f"text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;'>⚠ Date Order Conflict</div>"
+                f"<div style='font-size:12px;color:#e8e7ff;'>{_warn}</div>"
+                f"</div>",
+                unsafe_allow_html=True,
+            )
+            _date_warnings_shown.add(_warn)
+
     # Header row
     if use_conf:
         hc = st.columns([1.8, 1.4, 1.6, 1.8, 0.45, 0.45, 0.45, 0.40], gap="small")

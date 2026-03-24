@@ -1,0 +1,1861 @@
+{
+  "records": {
+    "CLM-HO0001": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0001",
+        "modified": "CLM-HO0001",
+        "excel_row": 4,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "01/20/2024",
+        "modified": "01/20/2024",
+        "excel_row": 4,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200000",
+        "modified": "POL-HO200000",
+        "excel_row": 4,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_001",
+        "modified": "Homeowner_001",
+        "excel_row": 4,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "Mike Peterson",
+        "modified": "Mike Peterson",
+        "excel_row": 4,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Roof leak splish",
+        "modified": "Roof leak splish",
+        "excel_row": 4,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Closed",
+        "modified": "Closed",
+        "excel_row": 4,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "32000",
+        "modified": "32000",
+        "excel_row": 4,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "500",
+        "modified": "500",
+        "excel_row": 4,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "32500",
+        "modified": "32500",
+        "excel_row": 4,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "10/01/2025",
+        "modified": "10/01/2025",
+        "excel_row": 4,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_D",
+        "modified": "Adjuster_D",
+        "excel_row": 4,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0002": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0002",
+        "modified": "CLM-HO0002",
+        "excel_row": 5,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "02/15/2024",
+        "modified": "02/15/2024",
+        "excel_row": 5,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200015",
+        "modified": "POL-HO200015",
+        "excel_row": 5,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_002",
+        "modified": "Homeowner_002",
+        "excel_row": 5,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "Emma Rodriguez",
+        "modified": "Emma Rodriguez",
+        "excel_row": 5,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Flood water glug",
+        "modified": "Flood water glug",
+        "excel_row": 5,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Closed",
+        "modified": "Closed",
+        "excel_row": 5,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "32000",
+        "modified": "32000",
+        "excel_row": 5,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "8000",
+        "modified": "8000",
+        "excel_row": 5,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "40000",
+        "modified": "40000",
+        "excel_row": 5,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "01/28/2026",
+        "modified": "01/28/2026",
+        "excel_row": 5,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_E",
+        "modified": "Adjuster_E",
+        "excel_row": 5,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0003": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0003",
+        "modified": "CLM-HO0003",
+        "excel_row": 6,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "03/19/2024",
+        "modified": "03/19/2024",
+        "excel_row": 6,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200030",
+        "modified": "POL-HO200030",
+        "excel_row": 6,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_003",
+        "modified": "Homeowner_003",
+        "excel_row": 6,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "Noah Davis",
+        "modified": "Noah Davis",
+        "excel_row": 6,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Pipe burst splash",
+        "modified": "Pipe burst splash",
+        "excel_row": 6,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Closed",
+        "modified": "Closed",
+        "excel_row": 6,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "8900",
+        "modified": "8900",
+        "excel_row": 6,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "500",
+        "modified": "500",
+        "excel_row": 6,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "9400",
+        "modified": "9400",
+        "excel_row": 6,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "03/07/2025",
+        "modified": "03/07/2025",
+        "excel_row": 6,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_B",
+        "modified": "Adjuster_B",
+        "excel_row": 6,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0004": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0004",
+        "modified": "CLM-HO0004",
+        "excel_row": 7,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "04/02/2024",
+        "modified": "04/02/2024",
+        "excel_row": 7,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200045",
+        "modified": "POL-HO200045",
+        "excel_row": 7,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_004",
+        "modified": "Homeowner_004",
+        "excel_row": 7,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "Sophia Lee",
+        "modified": "Sophia Lee",
+        "excel_row": 7,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Appliance kaboom",
+        "modified": "Appliance kaboom",
+        "excel_row": 7,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Closed",
+        "modified": "Closed",
+        "excel_row": 7,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "1500",
+        "modified": "1500",
+        "excel_row": 7,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "2500",
+        "modified": "2500",
+        "excel_row": 7,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "4000",
+        "modified": "4000",
+        "excel_row": 7,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "06/15/2025",
+        "modified": "06/15/2025",
+        "excel_row": 7,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_B",
+        "modified": "Adjuster_B",
+        "excel_row": 7,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0005": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0005",
+        "modified": "CLM-HO0005",
+        "excel_row": 8,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "05/13/2024",
+        "modified": "05/13/2024",
+        "excel_row": 8,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200060",
+        "modified": "POL-HO200060",
+        "excel_row": 8,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_005",
+        "modified": "Homeowner_005",
+        "excel_row": 8,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "James Chen",
+        "modified": "James Chen",
+        "excel_row": 8,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Appliance kaboom",
+        "modified": "Appliance kaboom",
+        "excel_row": 8,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Closed",
+        "modified": "Closed",
+        "excel_row": 8,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "32000",
+        "modified": "32000",
+        "excel_row": 8,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "0",
+        "modified": "0",
+        "excel_row": 8,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "32000",
+        "modified": "32000",
+        "excel_row": 8,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "03/23/2025",
+        "modified": "03/23/2025",
+        "excel_row": 8,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_C",
+        "modified": "Adjuster_C",
+        "excel_row": 8,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0006": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0006",
+        "modified": "CLM-HO0006",
+        "excel_row": 9,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "06/27/2024",
+        "modified": "06/27/2024",
+        "excel_row": 9,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200075",
+        "modified": "POL-HO200075",
+        "excel_row": 9,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_006",
+        "modified": "Homeowner_006",
+        "excel_row": 9,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "David Kumar",
+        "modified": "David Kumar",
+        "excel_row": 9,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Appliance kaboom",
+        "modified": "Appliance kaboom",
+        "excel_row": 9,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Closed",
+        "modified": "Closed",
+        "excel_row": 9,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "32000",
+        "modified": "32000",
+        "excel_row": 9,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "0",
+        "modified": "0",
+        "excel_row": 9,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "32000",
+        "modified": "32000",
+        "excel_row": 9,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "05/06/2025",
+        "modified": "05/06/2025",
+        "excel_row": 9,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_D",
+        "modified": "Adjuster_D",
+        "excel_row": 9,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0007": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0007",
+        "modified": "CLM-HO0007",
+        "excel_row": 10,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "07/04/2024",
+        "modified": "07/04/2024",
+        "excel_row": 10,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200090",
+        "modified": "POL-HO200090",
+        "excel_row": 10,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_007",
+        "modified": "Homeowner_007",
+        "excel_row": 10,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "James Chen",
+        "modified": "James Chen",
+        "excel_row": 10,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Basement soggy mess",
+        "modified": "Basement soggy mess",
+        "excel_row": 10,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Settled",
+        "modified": "Settled",
+        "excel_row": 10,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "45000",
+        "modified": "45000",
+        "excel_row": 10,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "500",
+        "modified": "500",
+        "excel_row": 10,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "45500",
+        "modified": "45500",
+        "excel_row": 10,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "07/18/2025",
+        "modified": "07/18/2025",
+        "excel_row": 10,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_B",
+        "modified": "Adjuster_B",
+        "excel_row": 10,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0008": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0008",
+        "modified": "CLM-HO0008",
+        "excel_row": 11,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "08/21/2024",
+        "modified": "08/21/2024",
+        "excel_row": 11,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200105",
+        "modified": "POL-HO200105",
+        "excel_row": 11,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_008",
+        "modified": "Homeowner_008",
+        "excel_row": 11,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "Emma Rodriguez",
+        "modified": "Emma Rodriguez",
+        "excel_row": 11,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Fire go boom",
+        "modified": "Fire go boom",
+        "excel_row": 11,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Closed",
+        "modified": "Closed",
+        "excel_row": 11,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "15000",
+        "modified": "15000",
+        "excel_row": 11,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "2500",
+        "modified": "2500",
+        "excel_row": 11,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "17500",
+        "modified": "17500",
+        "excel_row": 11,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "02/13/2026",
+        "modified": "02/13/2026",
+        "excel_row": 11,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_B",
+        "modified": "Adjuster_B",
+        "excel_row": 11,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0009": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0009",
+        "modified": "CLM-HO0009",
+        "excel_row": 12,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "09/25/2024",
+        "modified": "09/25/2024",
+        "excel_row": 12,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200120",
+        "modified": "POL-HO200120",
+        "excel_row": 12,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_009",
+        "modified": "Homeowner_009",
+        "excel_row": 12,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "Noah Davis",
+        "modified": "Noah Davis",
+        "excel_row": 12,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Hail damage thunk",
+        "modified": "Hail damage thunk",
+        "excel_row": 12,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Closed",
+        "modified": "Closed",
+        "excel_row": 12,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "5500",
+        "modified": "5500",
+        "excel_row": 12,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "1200",
+        "modified": "1200",
+        "excel_row": 12,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "6700",
+        "modified": "6700",
+        "excel_row": 12,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "07/29/2025",
+        "modified": "07/29/2025",
+        "excel_row": 12,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_A",
+        "modified": "Adjuster_A",
+        "excel_row": 12,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0010": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0010",
+        "modified": "CLM-HO0010",
+        "excel_row": 13,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "10/21/2024",
+        "modified": "10/21/2024",
+        "excel_row": 13,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200135",
+        "modified": "POL-HO200135",
+        "excel_row": 13,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_010",
+        "modified": "Homeowner_010",
+        "excel_row": 13,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "Oliver Brown",
+        "modified": "Oliver Brown",
+        "excel_row": 13,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Pipe burst splash",
+        "modified": "Pipe burst splash",
+        "excel_row": 13,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Closed",
+        "modified": "Closed",
+        "excel_row": 13,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "45000",
+        "modified": "45000",
+        "excel_row": 13,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "5000",
+        "modified": "5000",
+        "excel_row": 13,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "50000",
+        "modified": "50000",
+        "excel_row": 13,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "11/22/2025",
+        "modified": "11/22/2025",
+        "excel_row": 13,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_A",
+        "modified": "Adjuster_A",
+        "excel_row": 13,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0011": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0011",
+        "modified": "CLM-HO0011",
+        "excel_row": 14,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "11/18/2024",
+        "modified": "11/18/2024",
+        "excel_row": 14,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200150",
+        "modified": "POL-HO200150",
+        "excel_row": 14,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_011",
+        "modified": "Homeowner_011",
+        "excel_row": 14,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "Sophia Lee",
+        "modified": "Sophia Lee",
+        "excel_row": 14,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Fire go boom",
+        "modified": "Fire go boom",
+        "excel_row": 14,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Pending",
+        "modified": "Pending",
+        "excel_row": 14,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "800",
+        "modified": "800",
+        "excel_row": 14,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "0",
+        "modified": "0",
+        "excel_row": 14,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "800",
+        "modified": "800",
+        "excel_row": 14,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "04/12/2025",
+        "modified": "04/12/2025",
+        "excel_row": 14,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_E",
+        "modified": "Adjuster_E",
+        "excel_row": 14,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0012": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0012",
+        "modified": "CLM-HO0012",
+        "excel_row": 15,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "12/09/2024",
+        "modified": "12/09/2024",
+        "excel_row": 15,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200165",
+        "modified": "POL-HO200165",
+        "excel_row": 15,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_012",
+        "modified": "Homeowner_012",
+        "excel_row": 15,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "Sophia Lee",
+        "modified": "Sophia Lee",
+        "excel_row": 15,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Wind rip whoosh",
+        "modified": "Wind rip whoosh",
+        "excel_row": 15,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Settled",
+        "modified": "Settled",
+        "excel_row": 15,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "5500",
+        "modified": "5500",
+        "excel_row": 15,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "2500",
+        "modified": "2500",
+        "excel_row": 15,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "8000",
+        "modified": "8000",
+        "excel_row": 15,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "09/27/2025",
+        "modified": "09/27/2025",
+        "excel_row": 15,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_C",
+        "modified": "Adjuster_C",
+        "excel_row": 15,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0013": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0013",
+        "modified": "CLM-HO0013",
+        "excel_row": 16,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "01/17/2024",
+        "modified": "01/17/2024",
+        "excel_row": 16,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200180",
+        "modified": "POL-HO200180",
+        "excel_row": 16,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_013",
+        "modified": "Homeowner_013",
+        "excel_row": 16,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "James Chen",
+        "modified": "James Chen",
+        "excel_row": 16,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Wind rip whoosh",
+        "modified": "Wind rip whoosh",
+        "excel_row": 16,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Closed",
+        "modified": "Closed",
+        "excel_row": 16,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "800",
+        "modified": "800",
+        "excel_row": 16,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "5000",
+        "modified": "5000",
+        "excel_row": 16,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "5800",
+        "modified": "5800",
+        "excel_row": 16,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "12/30/2025",
+        "modified": "12/30/2025",
+        "excel_row": 16,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_C",
+        "modified": "Adjuster_C",
+        "excel_row": 16,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0014": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0014",
+        "modified": "CLM-HO0014",
+        "excel_row": 17,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "02/02/2024",
+        "modified": "02/02/2024",
+        "excel_row": 17,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200195",
+        "modified": "POL-HO200195",
+        "excel_row": 17,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_014",
+        "modified": "Homeowner_014",
+        "excel_row": 17,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "Sarah Johnson",
+        "modified": "Sarah Johnson",
+        "excel_row": 17,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Basement soggy mess",
+        "modified": "Basement soggy mess",
+        "excel_row": 17,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Pending",
+        "modified": "Pending",
+        "excel_row": 17,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "3200",
+        "modified": "3200",
+        "excel_row": 17,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "8000",
+        "modified": "8000",
+        "excel_row": 17,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "11200",
+        "modified": "11200",
+        "excel_row": 17,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "04/06/2025",
+        "modified": "04/06/2025",
+        "excel_row": 17,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_B",
+        "modified": "Adjuster_B",
+        "excel_row": 17,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0015": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0015",
+        "modified": "CLM-HO0015",
+        "excel_row": 18,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "03/02/2024",
+        "modified": "03/02/2024",
+        "excel_row": 18,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200210",
+        "modified": "POL-HO200210",
+        "excel_row": 18,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_015",
+        "modified": "Homeowner_015",
+        "excel_row": 18,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "Ava Williams",
+        "modified": "Ava Williams",
+        "excel_row": 18,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Hail damage thunk",
+        "modified": "Hail damage thunk",
+        "excel_row": 18,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Open",
+        "modified": "Open",
+        "excel_row": 18,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "8900",
+        "modified": "8900",
+        "excel_row": 18,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "0",
+        "modified": "0",
+        "excel_row": 18,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "8900",
+        "modified": "8900",
+        "excel_row": 18,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "01/11/2026",
+        "modified": "01/11/2026",
+        "excel_row": 18,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_D",
+        "modified": "Adjuster_D",
+        "excel_row": 18,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0016": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0016",
+        "modified": "CLM-HO0016",
+        "excel_row": 19,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "04/26/2024",
+        "modified": "04/26/2024",
+        "excel_row": 19,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200225",
+        "modified": "POL-HO200225",
+        "excel_row": 19,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_016",
+        "modified": "Homeowner_016",
+        "excel_row": 19,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "James Chen",
+        "modified": "James Chen",
+        "excel_row": 19,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Roof leak splish",
+        "modified": "Roof leak splish",
+        "excel_row": 19,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Closed",
+        "modified": "Closed",
+        "excel_row": 19,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "0",
+        "modified": "0",
+        "excel_row": 19,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "5000",
+        "modified": "5000",
+        "excel_row": 19,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "5000",
+        "modified": "5000",
+        "excel_row": 19,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "06/28/2025",
+        "modified": "06/28/2025",
+        "excel_row": 19,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_E",
+        "modified": "Adjuster_E",
+        "excel_row": 19,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0017": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0017",
+        "modified": "CLM-HO0017",
+        "excel_row": 20,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "05/25/2024",
+        "modified": "05/25/2024",
+        "excel_row": 20,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200240",
+        "modified": "POL-HO200240",
+        "excel_row": 20,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_017",
+        "modified": "Homeowner_017",
+        "excel_row": 20,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "Emma Rodriguez",
+        "modified": "Emma Rodriguez",
+        "excel_row": 20,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Basement soggy mess",
+        "modified": "Basement soggy mess",
+        "excel_row": 20,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Closed",
+        "modified": "Closed",
+        "excel_row": 20,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "32000",
+        "modified": "32000",
+        "excel_row": 20,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "1200",
+        "modified": "1200",
+        "excel_row": 20,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "33200",
+        "modified": "33200",
+        "excel_row": 20,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "05/26/2025",
+        "modified": "05/26/2025",
+        "excel_row": 20,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_A",
+        "modified": "Adjuster_A",
+        "excel_row": 20,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0018": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0018",
+        "modified": "CLM-HO0018",
+        "excel_row": 21,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "06/26/2024",
+        "modified": "06/26/2024",
+        "excel_row": 21,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200255",
+        "modified": "POL-HO200255",
+        "excel_row": 21,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_018",
+        "modified": "Homeowner_018",
+        "excel_row": 21,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "Ava Williams",
+        "modified": "Ava Williams",
+        "excel_row": 21,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Appliance kaboom",
+        "modified": "Appliance kaboom",
+        "excel_row": 21,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Closed",
+        "modified": "Closed",
+        "excel_row": 21,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "15000",
+        "modified": "15000",
+        "excel_row": 21,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "8000",
+        "modified": "8000",
+        "excel_row": 21,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "23000",
+        "modified": "23000",
+        "excel_row": 21,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "11/22/2025",
+        "modified": "11/22/2025",
+        "excel_row": 21,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_D",
+        "modified": "Adjuster_D",
+        "excel_row": 21,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0019": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0019",
+        "modified": "CLM-HO0019",
+        "excel_row": 22,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "07/16/2024",
+        "modified": "07/16/2024",
+        "excel_row": 22,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200270",
+        "modified": "POL-HO200270",
+        "excel_row": 22,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_019",
+        "modified": "Homeowner_019",
+        "excel_row": 22,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "Mike Peterson",
+        "modified": "Mike Peterson",
+        "excel_row": 22,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Roof leak splish",
+        "modified": "Roof leak splish",
+        "excel_row": 22,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Closed",
+        "modified": "Closed",
+        "excel_row": 22,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "1500",
+        "modified": "1500",
+        "excel_row": 22,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "2500",
+        "modified": "2500",
+        "excel_row": 22,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "4000",
+        "modified": "4000",
+        "excel_row": 22,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "10/22/2025",
+        "modified": "10/22/2025",
+        "excel_row": 22,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_E",
+        "modified": "Adjuster_E",
+        "excel_row": 22,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0020": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0020",
+        "modified": "CLM-HO0020",
+        "excel_row": 23,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "08/05/2024",
+        "modified": "08/05/2024",
+        "excel_row": 23,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200285",
+        "modified": "POL-HO200285",
+        "excel_row": 23,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_020",
+        "modified": "Homeowner_020",
+        "excel_row": 23,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "Mike Peterson",
+        "modified": "Mike Peterson",
+        "excel_row": 23,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Appliance kaboom",
+        "modified": "Appliance kaboom",
+        "excel_row": 23,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Settled",
+        "modified": "Settled",
+        "excel_row": 23,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "32000",
+        "modified": "32000",
+        "excel_row": 23,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "500",
+        "modified": "500",
+        "excel_row": 23,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "32500",
+        "modified": "32500",
+        "excel_row": 23,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "01/05/2026",
+        "modified": "01/05/2026",
+        "excel_row": 23,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_D",
+        "modified": "Adjuster_D",
+        "excel_row": 23,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0021": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0021",
+        "modified": "CLM-HO0021",
+        "excel_row": 24,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "09/02/2024",
+        "modified": "09/02/2024",
+        "excel_row": 24,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200300",
+        "modified": "POL-HO200300",
+        "excel_row": 24,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_021",
+        "modified": "Homeowner_021",
+        "excel_row": 24,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "Emma Rodriguez",
+        "modified": "Emma Rodriguez",
+        "excel_row": 24,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Hail damage thunk",
+        "modified": "Hail damage thunk",
+        "excel_row": 24,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Closed",
+        "modified": "Closed",
+        "excel_row": 24,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "3200",
+        "modified": "3200",
+        "excel_row": 24,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "500",
+        "modified": "500",
+        "excel_row": 24,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "3700",
+        "modified": "3700",
+        "excel_row": 24,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "02/21/2026",
+        "modified": "02/21/2026",
+        "excel_row": 24,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_C",
+        "modified": "Adjuster_C",
+        "excel_row": 24,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0022": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0022",
+        "modified": "CLM-HO0022",
+        "excel_row": 25,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "10/05/2024",
+        "modified": "10/05/2024",
+        "excel_row": 25,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200315",
+        "modified": "POL-HO200315",
+        "excel_row": 25,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_022",
+        "modified": "Homeowner_022",
+        "excel_row": 25,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "Lisa Wong",
+        "modified": "Lisa Wong",
+        "excel_row": 25,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Wind rip whoosh",
+        "modified": "Wind rip whoosh",
+        "excel_row": 25,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Open",
+        "modified": "Open",
+        "excel_row": 25,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "15000",
+        "modified": "15000",
+        "excel_row": 25,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "5000",
+        "modified": "5000",
+        "excel_row": 25,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "20000",
+        "modified": "20000",
+        "excel_row": 25,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "07/03/2025",
+        "modified": "07/03/2025",
+        "excel_row": 25,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_B",
+        "modified": "Adjuster_B",
+        "excel_row": 25,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0023": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0023",
+        "modified": "CLM-HO0023",
+        "excel_row": 26,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "11/18/2024",
+        "modified": "11/18/2024",
+        "excel_row": 26,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200330",
+        "modified": "POL-HO200330",
+        "excel_row": 26,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_023",
+        "modified": "Homeowner_023",
+        "excel_row": 26,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "Sophia Lee",
+        "modified": "Sophia Lee",
+        "excel_row": 26,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Wind rip whoosh",
+        "modified": "Wind rip whoosh",
+        "excel_row": 26,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Closed",
+        "modified": "Closed",
+        "excel_row": 26,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "3200",
+        "modified": "3200",
+        "excel_row": 26,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "5000",
+        "modified": "5000",
+        "excel_row": 26,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "8200",
+        "modified": "8200",
+        "excel_row": 26,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "04/09/2025",
+        "modified": "04/09/2025",
+        "excel_row": 26,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_A",
+        "modified": "Adjuster_A",
+        "excel_row": 26,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0024": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0024",
+        "modified": "CLM-HO0024",
+        "excel_row": 27,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "12/04/2024",
+        "modified": "12/04/2024",
+        "excel_row": 27,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200345",
+        "modified": "POL-HO200345",
+        "excel_row": 27,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_024",
+        "modified": "Homeowner_024",
+        "excel_row": 27,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "James Chen",
+        "modified": "James Chen",
+        "excel_row": 27,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Pipe burst splash",
+        "modified": "Pipe burst splash",
+        "excel_row": 27,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Closed",
+        "modified": "Closed",
+        "excel_row": 27,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "32000",
+        "modified": "32000",
+        "excel_row": 27,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "0",
+        "modified": "0",
+        "excel_row": 27,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "32000",
+        "modified": "32000",
+        "excel_row": 27,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "05/11/2025",
+        "modified": "05/11/2025",
+        "excel_row": 27,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_C",
+        "modified": "Adjuster_C",
+        "excel_row": 27,
+        "excel_col": 12
+      }
+    },
+    "CLM-HO0025": {
+      "TOTALS_AGGREGATE_ZORP": {
+        "value": "CLM-HO0025",
+        "modified": "CLM-HO0025",
+        "excel_row": 28,
+        "excel_col": 1
+      },
+      "03/16/2026": {
+        "value": "01/25/2024",
+        "modified": "01/25/2024",
+        "excel_row": 28,
+        "excel_col": 2
+      },
+      "SUMMARY_FLIBBER": {
+        "value": "POL-HO200360",
+        "modified": "POL-HO200360",
+        "excel_row": 28,
+        "excel_col": 3
+      },
+      "Acme Insurance Co.": {
+        "value": "Homeowner_025",
+        "modified": "Homeowner_025",
+        "excel_row": 28,
+        "excel_col": 4
+      },
+      "Total Claims: 25": {
+        "value": "Noah Davis",
+        "modified": "Noah Davis",
+        "excel_row": 28,
+        "excel_col": 5
+      },
+      "Valuation Report": {
+        "value": "Flood water glug",
+        "modified": "Flood water glug",
+        "excel_row": 28,
+        "excel_col": 6
+      },
+      "Open:2 Pend:2": {
+        "value": "Settled",
+        "modified": "Settled",
+        "excel_row": 28,
+        "excel_col": 7
+      },
+      "402800": {
+        "value": "800",
+        "modified": "800",
+        "excel_row": 28,
+        "excel_col": 8
+      },
+      "63900": {
+        "value": "0",
+        "modified": "0",
+        "excel_row": 28,
+        "excel_col": 9
+      },
+      "466700": {
+        "value": "800",
+        "modified": "800",
+        "excel_row": 28,
+        "excel_col": 10
+      },
+      "Date Reported": {
+        "value": "03/04/2026",
+        "modified": "03/04/2026",
+        "excel_row": 28,
+        "excel_col": 11
+      },
+      "All Adjusters": {
+        "value": "Adjuster_A",
+        "modified": "Adjuster_A",
+        "excel_row": 28,
+        "excel_col": 12
+      }
+    }
+  },
+  "sheet_type": "COMMERCIAL_LOSS_RUN",
+  "total_rows": 28,
+  "total_cols": 12,
+  "sheet_name": "HomeOwners Loss Run",
+  "col_rename_log": {
+    "Report Date": "Date Reported"
+  }
+}

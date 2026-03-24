@@ -4489,5 +4489,205 @@
     "input_text": "LACERATION",
     "cause_of_loss": "Laceration",
     "summary": "The claimant alleges that they suffered a laceration."
+  },
+  {
+    "event": "SHEET_LOADED_FROM_CACHE",
+    "timestamp": "2026-03-24T11:37:21.740985",
+    "filename": "loss_runs.xlsx",
+    "sheet": "CGL Loss Run",
+    "sheet_hash": "0a53856501ec2c42f484328b7be87569ac8f90d6df3ccd7b9db90d0ad70c24de"
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-24T11:37:21.772635",
+    "claim_id": "CGL-001",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-24T11:37:21.804217",
+    "claim_id": "CGL-002",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-24T11:37:21.820234",
+    "claim_id": "CGL-003",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-24T11:37:21.852176",
+    "claim_id": "CGL-004",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-24T11:37:21.886784",
+    "claim_id": "CGL-005",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-24T11:37:21.918108",
+    "claim_id": "CGL-006",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-24T11:37:21.932060",
+    "claim_id": "CGL-007",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-24T11:37:21.963611",
+    "claim_id": "CGL-008",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-24T11:37:21.995432",
+    "claim_id": "CGL-009",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "CLAIM_DUPLICATE_DETECTED",
+    "timestamp": "2026-03-24T11:37:22.059290",
+    "claim_id": "CGL-010",
+    "sheet": "CGL Loss Run",
+    "filename": "loss_runs.xlsx",
+    "prev_filename": "loss_runs.xlsx",
+    "changed_fields": []
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-24T11:37:24.063630",
+    "sheet": "CGL Loss Run",
+    "claim_id": "CGL-001",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "LACERATION",
+    "cause_of_loss": "Laceration",
+    "summary": "The claimant alleges that they suffered a laceration."
+  },
+  {
+    "event": "FILE_INGESTED",
+    "timestamp": "2026-03-24T11:40:37.633311",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "file_hash": "ec2f29667314acf6bd9867436299866f40b8277825d27034013e80fe8812c109",
+    "sheets": [
+      "HomeOwners Loss Run"
+    ]
+  },
+  {
+    "event": "SHEET_PARSED",
+    "timestamp": "2026-03-24T11:40:37.799073",
+    "filename": "test_lossrun_homeowners_weird.xlsx",
+    "sheet": "HomeOwners Loss Run",
+    "sheet_hash": "dece859954ab4045d48e34a255ac9d4d7fe7084492434744cfafee954fbf9d34",
+    "claim_rows": 25,
+    "sheet_type": "COMMERCIAL_LOSS_RUN",
+    "total_rows": 28,
+    "total_cols": 12,
+    "col_renames": {
+      "Report Date": "Date Reported"
+    }
+  },
+  {
+    "event": "LLM_FIELD_MAP",
+    "timestamp": "2026-03-24T11:40:42.001601",
+    "sheet": "HomeOwners Loss Run",
+    "schema": "Guidewire",
+    "source_cols": [
+      "TOTALS_AGGREGATE_ZORP",
+      "03/16/2026",
+      "SUMMARY_FLIBBER",
+      "Acme Insurance Co.",
+      "Total Claims: 25",
+      "Valuation Report",
+      "Open:2 Pend:2",
+      "402800",
+      "63900",
+      "466700",
+      "Date Reported",
+      "All Adjusters"
+    ],
+    "mappings": {
+      "TOTALS_AGGREGATE_ZORP": "Claim Number",
+      "03/16/2026": "Loss Date",
+      "SUMMARY_FLIBBER": "Policy Number",
+      "Acme Insurance Co.": "Carrier",
+      "Total Claims: 25": "Claimant Name",
+      "Valuation Report": "Description of Loss",
+      "Open:2 Pend:2": "Status",
+      "402800": "Total Incurred",
+      "63900": "Total Paid",
+      "466700": "Reserve",
+      "Date Reported": "Date Reported",
+      "All Adjusters": "Adjuster Name"
+    },
+    "unmapped": [
+      "01/20/2024",
+      "Homeowner_001",
+      "Mike Peterson",
+      "Closed",
+      "32000",
+      "500",
+      "32500",
+      "Adjuster_D"
+    ]
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-24T11:40:43.924554",
+    "sheet": "HomeOwners Loss Run",
+    "claim_id": "CLM-HO0001",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "Roof leak splish",
+    "cause_of_loss": "Water Damage - Pipe",
+    "summary": "The claimant alleges that there is a leak in the roof."
+  },
+  {
+    "event": "LLM_CAUSE_ENRICHED",
+    "timestamp": "2026-03-24T11:41:12.194112",
+    "sheet": "HomeOwners Loss Run",
+    "claim_id": "CLM-HO0003",
+    "source_fields": [
+      "Description of Loss"
+    ],
+    "input_text": "Pipe burst splash",
+    "cause_of_loss": "Water Damage - Pipe",
+    "summary": "The claimant alleges that a pipe burst and caused water damage."
   }
 ]
