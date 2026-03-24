@@ -215,5 +215,11 @@ div[data-testid="stCheckbox"] label{font-family:var(--font)!important;font-size:
 .col-summary-panel{background:var(--s0);border:1px solid var(--b1);border-left:3px solid var(--green);border-radius:var(--radius);padding:7px 12px;margin-top:4px;margin-bottom:6px}
 .col-summary-text{font-size:var(--sz-xs);color:var(--t2);font-family:var(--font);line-height:1.5}
 .llm-map-banner{background:rgba(245,200,66,.07);border:1px solid rgba(245,200,66,.25);border-left:3px solid var(--yellow);border-radius:var(--radius);padding:10px 14px;margin-bottom:12px}
+
+/* ── Tooltip / help text visibility fix ── */
+div[data-testid="stTooltipHoverTarget"]{display:inline-flex!important}
+div[role="tooltip"]{background:var(--s1)!important;border:1px solid var(--b1)!important;border-radius:var(--radius)!important;color:var(--t0)!important;font-family:var(--font)!important;font-size:var(--sz-xs)!important;padding:6px 10px!important;box-shadow:var(--shadow)!important;max-width:220px!important;z-index:9999!important}
+div[role="tooltip"] p{color:var(--t0)!important;font-size:var(--sz-xs)!important;margin:0!important}
+
 </style>
 """
