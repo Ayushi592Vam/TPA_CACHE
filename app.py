@@ -63,6 +63,7 @@ from ui.dialogs import (
     show_schema_fields_dialog,
     show_field_history_dialog,
     show_eye_popup,
+    show_cache_manager_dialog,
 )
 
 import os
@@ -80,11 +81,29 @@ for _k, _v in SESSION_DEFAULTS.items():
     if _k not in st.session_state:
         st.session_state[_k] = _v
 
+# ── One-time migration: clear stale claim dup snapshots with empty fields ─────
+if "claim_dup_migrated_v2" not in st.session_state:
+    try:
+        from modules.claim_dup_store import _load_claim_dup_store, _save_claim_dup_store
+        _dup_store = _load_claim_dup_store()
+        _cleaned   = {
+            cid: snap for cid, snap in _dup_store.items()
+            if snap.get("fields") and
+            sum(1 for v in snap["fields"].values() if str(v).strip()) /
+            max(len(snap["fields"]), 1) >= 0.3
+        }
+        if len(_cleaned) != len(_dup_store):
+            _save_claim_dup_store(_cleaned)
+    except Exception:
+        pass
+    st.session_state["claim_dup_migrated_v2"] = True
+
 if "focus_field" not in st.session_state:
     st.session_state.focus_field = None
 
 # ── Top bar ──────────────────────────────────────────────────────────────────
-if render_topbar(SCHEMAS, _CONFIG_LOAD_STATUS):
+_settings_clicked = render_topbar(SCHEMAS, _CONFIG_LOAD_STATUS)
+if _settings_clicked:
     show_settings_dialog(SCHEMAS, _CONFIG_LOAD_STATUS)
 
 # ── Schema popup ─────────────────────────────────────────────────────────────
@@ -92,6 +111,10 @@ if st.session_state.get("schema_popup_target"):
     _target = st.session_state["schema_popup_target"]
     st.session_state["schema_popup_target"] = None
     show_schema_fields_dialog(_target, SCHEMAS)
+
+if st.session_state.get("_open_cache_manager"):
+    st.session_state["_open_cache_manager"] = False
+    show_cache_manager_dialog()
 
 _, col_sheet_dropdown = st.columns([6.8, 1.2])
 

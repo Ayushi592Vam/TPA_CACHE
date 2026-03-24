@@ -146,12 +146,13 @@ def render_export_panel(
     _json_btn_label = "▲ Hide Live JSON" if st.session_state[_json_toggle_key] else "{ } Preview JSON"
     if st.button(_json_btn_label, key=f"json_toggle_btn_{selected_sheet}_{curr_claim_id}", use_container_width=True):
         st.session_state[_json_toggle_key] = not st.session_state[_json_toggle_key]
-        st.rerun()
 
     if st.session_state[_json_toggle_key]:
         _rp_live_record: dict = {}
         _rp_schema = st.session_state.get("active_schema", None)
+
         if _rp_schema and _rp_schema in SCHEMAS:
+            # ── Schema mode preview ───────────────────────────────────────────
             _rp_schema_def = SCHEMAS[_rp_schema]
             _rp_mapped     = map_claim_to_schema(curr_claim, _rp_schema, title_fields, _llm_map_result)
             _rp_cf         = st.session_state.get(f"custom_fields_{_rp_schema}", [])
@@ -159,16 +160,49 @@ def render_export_panel(
                 f for f in _rp_cf if f not in _rp_schema_def["required_fields"]
             ]
             for sf in _rp_disp:
-                mk_rp = f"mod_{selected_sheet}_{curr_claim_id}_schema_{sf}"
-                if sf in _rp_mapped:
-                    _rp_live_record[sf] = st.session_state.get(mk_rp, _rp_mapped[sf]["value"])
-                elif st.session_state.get(mk_rp):
-                    _rp_live_record[sf] = st.session_state[mk_rp]
-        else:
-            for fld, inf in curr_claim.items():
-                mk_rp = f"mod_{selected_sheet}_{curr_claim_id}_{fld}"
-                _rp_live_record[fld] = st.session_state.get(mk_rp, inf.get("modified", inf["value"]))
+                # Checkbox key — MUST match exactly what claim_panel schema mode registers
+                # claim_panel line 104: xk = f"chk_{selected_sheet}_{curr_claim_id}_{schema_field}"
+                # NO "_schema_" in the key
+                chk_key = f"chk_{selected_sheet}_{curr_claim_id}_{sf}"
 
+                # Skip if explicitly unchecked (False). Include if True or key not yet in state.
+                if st.session_state.get(chk_key, True) is False:
+                    continue
+
+                # Read value: prefer session state mod key, then mapped value
+                mk_schema = f"mod_{selected_sheet}_{curr_claim_id}_schema_{sf}"
+                mk_plain  = f"mod_{selected_sheet}_{curr_claim_id}_{sf}"
+
+                if st.session_state.get(mk_schema) is not None:
+                    val = st.session_state[mk_schema]
+                elif st.session_state.get(mk_plain) is not None:
+                    val = st.session_state[mk_plain]
+                elif sf in _rp_mapped:
+                    val = _rp_mapped[sf].get("modified", _rp_mapped[sf].get("value", ""))
+                else:
+                    val = ""
+
+                if val not in ("", None):
+                    _rp_live_record[sf] = val
+
+        else:
+            # ── Plain mode preview ────────────────────────────────────────────
+            for fld, inf in curr_claim.items():
+                # Checkbox key — matches claim_panel plain mode line 174
+                chk_key = f"chk_{selected_sheet}_{curr_claim_id}_{fld}"
+
+                if st.session_state.get(chk_key, True) is False:
+                    continue
+
+                mk_rp = f"mod_{selected_sheet}_{curr_claim_id}_{fld}"
+                val   = st.session_state.get(mk_rp)
+                if val is None:
+                    val = inf.get("modified", inf.get("value", ""))
+
+                if val not in ("", None):
+                    _rp_live_record[fld] = val
+
+        # Custom fields — always included
         _uf_key = f"user_added_fields_{selected_sheet}_{curr_claim_id}"
         for uf in st.session_state.get(_uf_key, []):
             uf_idx_rp = st.session_state.get(_uf_key, []).index(uf)

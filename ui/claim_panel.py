@@ -13,7 +13,7 @@ from modules.audit import _append_audit
 from modules.field_history import _record_field_history
 from modules.normalization import _best_standard_name, auto_normalize_field
 from modules.schema_mapping import get_val, map_claim_to_schema
-from ui.field_row import render_field_row
+from ui.field_row import render_field_row, _is_date_field, _validate_date
 from ui.dialogs import show_eye_popup
 from ui.claim_dup_panel import render_claim_dup_panel
 
@@ -101,7 +101,7 @@ def _render_schema_mode(
 
         ek = f"edit_{selected_sheet}_{curr_claim_id}_schema_{schema_field}"
         mk = f"mod_{selected_sheet}_{curr_claim_id}_schema_{schema_field}"
-        xk = f"chk_{selected_sheet}_{curr_claim_id}_schema_{schema_field}"
+        xk = f"chk_{selected_sheet}_{curr_claim_id}_{schema_field}"
 
         render_field_row(
             schema_field=schema_field, info=info,
@@ -174,8 +174,8 @@ def _render_plain_mode(
         xk = f"chk_{selected_sheet}_{curr_claim_id}_{field}"
         mk = f"mod_{selected_sheet}_{curr_claim_id}_{field}"
         if ek not in st.session_state: st.session_state[ek] = False
-        if xk not in st.session_state: st.session_state[xk] = True
         if mk not in st.session_state: st.session_state[mk] = info.get("value", "")
+        if xk not in st.session_state: st.session_state[xk] = True
 
         _cur_val_p              = st.session_state.get(mk, info.get("value", "")) or ""
         _dot_p = "<span style='color:var(--yellow);margin-left:4px;font-size:8px;'>●</span>" if _cur_val_p != info["value"] else ""
@@ -230,7 +230,10 @@ def _render_plain_mode(
         ) if use_conf else ""
 
         def _plain_edit_col(_field=field, _mk=mk, _ek=ek):
-            _plain_display_val = st.session_state.get(_mk, info.get("value", "")) or ""
+            _plain_display_val = st.session_state.get(
+                _mk, info.get("modified", info.get("value", ""))
+            ) or ""
+            _err_key = f"err_{_mk}"
             if st.session_state[_ek]:
                 with st.form(
                     key=f"form_{selected_sheet}_{curr_claim_id}_{_field}", border=False
@@ -238,29 +241,60 @@ def _render_plain_mode(
                     nv        = st.text_input("m", value=_plain_display_val, label_visibility="collapsed")
                     submitted = st.form_submit_button("", use_container_width=False)
                     if submitted:
-                        old_val = _plain_display_val
-                        st.session_state[_mk] = nv
-                        active["data"][st.session_state.selected_idx][_field]["modified"] = nv
-                        st.session_state[_ek] = False
-                        _record_field_history(selected_sheet, curr_claim_id, _field, old_val, nv)
-                        _append_audit({
-                            "event":     "FIELD_EDITED",
-                            "timestamp": datetime.datetime.now().isoformat(),
-                            "filename":  uploaded_name,
-                            "sheet":     selected_sheet,
-                            "claim_id":  curr_claim_id,
-                            "field":     _field,
-                            "original":  info["value"],
-                            "new_value": nv,
-                        })
-                        st.rerun()
+                        if _is_date_field(_field):
+                            is_valid, err_msg = _validate_date(nv)
+                            if not is_valid:
+                                st.session_state[_err_key] = err_msg
+                            else:
+                                st.session_state.pop(_err_key, None)
+                                old_val = _plain_display_val
+                                st.session_state[_mk] = nv
+                                active["data"][st.session_state.selected_idx][_field]["modified"] = nv
+                                st.session_state[_ek] = False
+                                _record_field_history(selected_sheet, curr_claim_id, _field, old_val, nv)
+                                _append_audit({
+                                    "event":     "FIELD_EDITED",
+                                    "timestamp": datetime.datetime.now().isoformat(),
+                                    "filename":  uploaded_name,
+                                    "sheet":     selected_sheet,
+                                    "claim_id":  curr_claim_id,
+                                    "field":     _field,
+                                    "original":  info["value"],
+                                    "new_value": nv,
+                                })
+                                st.rerun()
+                        else:
+                            st.session_state.pop(_err_key, None)
+                            old_val = _plain_display_val
+                            st.session_state[_mk] = nv
+                            active["data"][st.session_state.selected_idx][_field]["modified"] = nv
+                            st.session_state[_ek] = False
+                            _record_field_history(selected_sheet, curr_claim_id, _field, old_val, nv)
+                            _append_audit({
+                                "event":     "FIELD_EDITED",
+                                "timestamp": datetime.datetime.now().isoformat(),
+                                "filename":  uploaded_name,
+                                "sheet":     selected_sheet,
+                                "claim_id":  curr_claim_id,
+                                "field":     _field,
+                                "original":  info["value"],
+                                "new_value": nv,
+                            })
+                            st.rerun()
+                err = st.session_state.get(_err_key)
+                if err:
+                    st.markdown(
+                        f"<div style='color:#f87171;font-size:11px;padding:4px 6px;"
+                        f"background:rgba(248,113,113,0.1);border-radius:4px;margin-top:2px;'>"
+                        f"⚠ {err}</div>",
+                        unsafe_allow_html=True,
+                    )
             else:
+                st.session_state.pop(_err_key, None)
                 st.text_input(
                     "m", value=_plain_display_val,
                     key=f"disp_plain_{_mk}", label_visibility="collapsed", disabled=True,
                 )
-            active["data"][st.session_state.selected_idx][_field]["modified"] = _plain_display_val
-
         if use_conf:
             cl, cc, co, cm, ce, cb, cx = st.columns([1.8, 1.2, 1.8, 1.8, 0.5, 0.5, 0.4], gap="small")
             with cl: st.markdown(_plain_field_label, unsafe_allow_html=True)
@@ -277,8 +311,9 @@ def _render_plain_mode(
                     show_eye_popup(field, info, excel_path, selected_sheet)
             with cb:
                 if not st.session_state[ek]:
-                    if st.button("✏", key=f"ed_{selected_sheet}_{curr_claim_id}_{field}", use_container_width=True):
-                        st.session_state[ek] = True; st.rerun()
+                    if st.button("✏", key=f"ed_{selected_sheet}_{curr_claim_id}_{field}_v{st.session_state.get(f'_v_{mk}',0)}", use_container_width=True):
+                        st.session_state[ek] = True
+                        st.rerun()
                 else:
                     st.markdown("<div style='height:38px;display:flex;align-items:center;justify-content:center;color:var(--green);font-size:11px;border:1px solid var(--b0);border-radius:6px;'>↵</div>", unsafe_allow_html=True)
             with cx:
@@ -299,8 +334,9 @@ def _render_plain_mode(
                     show_eye_popup(field, info, excel_path, selected_sheet)
             with cb:
                 if not st.session_state[ek]:
-                    if st.button("✏", key=f"ed_{selected_sheet}_{curr_claim_id}_{field}", use_container_width=True):
-                        st.session_state[ek] = True; st.rerun()
+                    if st.button("✏", key=f"ed_{selected_sheet}_{curr_claim_id}_{field}_v{st.session_state.get(f'_v_{mk}',0)}", use_container_width=True):
+                        st.session_state[ek] = True
+                        st.rerun()
                 else:
                     st.markdown("<div style='height:38px;display:flex;align-items:center;justify-content:center;color:var(--green);font-size:11px;border:1px solid var(--b0);border-radius:6px;'>↵</div>", unsafe_allow_html=True)
             with cx:
@@ -485,13 +521,27 @@ def render_claim_panel(
         b1, b2 = st.columns([1, 1])
         with b1:
             if st.button("✔ All", key=f"all_{selected_sheet}_{curr_claim_id}", use_container_width=True):
+                # Set for both plain field keys and schema field keys
                 for fld in curr_claim:
                     st.session_state[f"chk_{selected_sheet}_{curr_claim_id}_{fld}"] = True
+                # Also set schema field keys if schema is active
+                _active_s = st.session_state.get("active_schema")
+                if _active_s:
+                    from config.schemas import SCHEMAS
+                    if _active_s in SCHEMAS:
+                        for sf in SCHEMAS[_active_s].get("accepted_fields", []):
+                            st.session_state[f"chk_{selected_sheet}_{curr_claim_id}_{sf}"] = True
                 st.rerun()
         with b2:
             if st.button("✘ None", key=f"none_{selected_sheet}_{curr_claim_id}", use_container_width=True):
                 for fld in curr_claim:
                     st.session_state[f"chk_{selected_sheet}_{curr_claim_id}_{fld}"] = False
+                _active_s = st.session_state.get("active_schema")
+                if _active_s:
+                    from config.schemas import SCHEMAS
+                    if _active_s in SCHEMAS:
+                        for sf in SCHEMAS[_active_s].get("accepted_fields", []):
+                            st.session_state[f"chk_{selected_sheet}_{curr_claim_id}_{sf}"] = False
                 st.rerun()
 
     st.markdown("<hr>", unsafe_allow_html=True)

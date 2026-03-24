@@ -1,11 +1,3 @@
-"""
-ui/dialogs.py
-All @st.dialog popups:
-  - show_eye_popup         — cell-view with Excel highlight
-  - show_field_history_dialog — per-field edit timeline
-  - show_settings_dialog   — conf threshold + schema manager
-  - show_schema_fields_dialog — required / accepted / custom field viewer
-"""
 
 import csv
 import datetime
@@ -345,11 +337,6 @@ def show_settings_dialog(schemas: dict, config_load_status: dict) -> None:
     st.markdown("---")
     r1, r2 = st.columns(2)
     with r1:
-        if st.button("🗑 Clear Claim Dup History", use_container_width=True, key="clear_claim_dup_all"):
-            from modules.claim_dup_store import clear_claim_dup_store
-            clear_claim_dup_store()
-            st.success("✅ Claim duplicate history cleared")
-            st.rerun()
         if st.button("Reset Defaults", use_container_width=True, key="reset_defaults_btn"):
             st.session_state["conf_threshold"]     = 80
             st.session_state["use_conf_threshold"] = False
@@ -454,3 +441,161 @@ def show_schema_fields_dialog(schema_name: str, schemas: dict) -> None:
             f" &nbsp;|&nbsp; Total: <b style='color:var(--t0);'>{total}</b></span></div>",
             unsafe_allow_html=True,
         )
+
+
+# ── Cache Manager dialog ──────────────────────────────────────────────────────
+
+@st.dialog("Cache Manager", width="large")
+def show_cache_manager_dialog() -> None:
+    from modules.cache_manager import (
+        get_cache_stats, clear_session_cache, clear_parsed_cache,
+        clear_hash_store, clear_claim_dup_store,
+        clear_audit_log, clear_export_table, _fmt_size,
+    )
+
+    st.markdown("### 🗄️ Cache Manager")
+    st.markdown(
+        "<div style='font-size:13px;color:#a0a0c8;margin-bottom:16px;'>"
+        "View and selectively clear each cache layer. "
+        "This does not affect your uploaded files.</div>",
+        unsafe_allow_html=True,
+    )
+
+    # ── Live stats ────────────────────────────────────────────────────────────
+    stats = get_cache_stats()
+
+    def _stat_row(label, detail, color="#4f9cf9"):
+        st.markdown(
+            f"<div style='display:flex;justify-content:space-between;align-items:center;"
+            f"background:#17172a;border:1px solid #2a2a45;border-radius:6px;"
+            f"padding:10px 14px;margin-bottom:6px;'>"
+            f"<div style='font-size:13px;font-weight:600;color:#e8e7ff;'>{label}</div>"
+            f"<div style='font-size:12px;font-family:monospace;color:{color};'>{detail}</div>"
+            f"</div>",
+            unsafe_allow_html=True,
+        )
+
+    _stat_row("Parsed Sheet Cache",
+              f"{stats['parsed']['files']} file(s) · {_fmt_size(stats['parsed']['size_kb'])}",
+              "#34d399" if stats['parsed']['files'] > 0 else "#64748b")
+    _stat_row("File Hash Store (Duplicate Memory)",
+              f"{stats['hash_store']['entries']} file(s) tracked",
+              "#f5c842" if stats['hash_store']['entries'] > 0 else "#64748b")
+    _stat_row("Claim Duplicate Store",
+              f"{stats['claim_dups']['entries']} claim(s) tracked",
+              "#f87171" if stats['claim_dups']['entries'] > 0 else "#64748b")
+    _stat_row("Audit Log",
+              f"{stats['audit_log']['entries']} event(s) recorded",
+              "#a78bfa" if stats['audit_log']['entries'] > 0 else "#64748b")
+    _stat_row("Export History",
+              f"{stats['export_table']['entries']} export(s) recorded",
+              "#4f9cf9" if stats['export_table']['entries'] > 0 else "#64748b")
+
+    st.markdown("---")
+    st.markdown(
+        "<div style='font-size:12px;color:#a0a0c8;margin-bottom:10px;font-family:monospace;"
+        "text-transform:uppercase;letter-spacing:1px;'>Select what to clear</div>",
+        unsafe_allow_html=True,
+    )
+
+    # ── Checkboxes ────────────────────────────────────────────────────────────
+    c1, c2 = st.columns(2)
+    with c1:
+        do_session   = st.checkbox("UI Session State", value=True,
+                                   help="Clears all in-memory selections, modified values, and panel states")
+        do_parsed    = st.checkbox("Parsed Sheet Cache", value=False,
+                                   help="Deletes cached JSON from feature_store/claims_json/ — next upload re-parses from scratch")
+        do_hash      = st.checkbox("File Duplicate Memory", value=False,
+                                   help="Resets hash_store.json — all files will be treated as NEW on next upload")
+    with c2:
+        do_claim_dup = st.checkbox("Claim Duplicate Store", value=False,
+                                   help="Resets claim_dup_store.json — claim change tracking starts fresh")
+        do_audit     = st.checkbox("Audit Log", value=False,
+                                   help="Clears audit_log.json — all event history is lost")
+        do_exports   = st.checkbox("Export History", value=False,
+                                   help="Clears json_export_table.json — export records are removed")
+
+    st.markdown("---")
+
+    # ── Quick presets ─────────────────────────────────────────────────────────
+    st.markdown(
+        "<div style='font-size:12px;color:#a0a0c8;margin-bottom:8px;font-family:monospace;"
+        "text-transform:uppercase;letter-spacing:1px;'>Quick presets</div>",
+        unsafe_allow_html=True,
+    )
+    p1, p2, p3 = st.columns(3)
+    with p1:
+        if st.button("🔄 Soft Reset", use_container_width=True,
+                     help="Clears UI state only — keeps all file history and cache on disk"):
+            cleared = clear_session_cache(st.session_state)
+            st.success(f"✅ UI state cleared ({cleared} keys removed)")
+            st.rerun()
+    with p2:
+        if st.button("📁 Clear File History", use_container_width=True,
+                     help="Resets duplicate memory so all files appear as NEW"):
+            n_hash = clear_hash_store()
+            n_dup  = clear_claim_dup_store()
+            st.session_state["sheet_cache"] = {}
+            st.success(f"✅ File history cleared ({n_hash} files, {n_dup} claims reset)")
+            st.rerun()
+    with p3:
+        if st.button("🗑️ Full Reset", use_container_width=True,
+                     help="Clears everything — session state, parsed cache, file history, claim tracking",
+                     type="primary"):
+            st.session_state["_confirm_full_reset"] = True
+            st.rerun()
+
+    # Confirm full reset
+    if st.session_state.get("_confirm_full_reset"):
+        st.warning("⚠️ **This will clear ALL cache layers.** Are you sure?")
+        yes_col, no_col = st.columns(2)
+        with yes_col:
+            if st.button("Yes, clear everything", type="primary", use_container_width=True):
+                clear_session_cache(st.session_state)
+                clear_parsed_cache()
+                clear_hash_store()
+                clear_claim_dup_store()
+                clear_audit_log()
+                clear_export_table()
+                st.session_state["_confirm_full_reset"] = False
+                st.success("✅ All cache layers cleared. Upload a fresh file to begin.")
+                st.rerun()
+        with no_col:
+            if st.button("Cancel", use_container_width=True):
+                st.session_state["_confirm_full_reset"] = False
+                st.rerun()
+
+    st.markdown("---")
+
+    # ── Custom clear button ───────────────────────────────────────────────────
+    col_clear, col_close = st.columns(2)
+    with col_clear:
+        if st.button("🗑️ Clear Selected", use_container_width=True):
+            msgs = []
+            if do_session:
+                n = clear_session_cache(st.session_state)
+                msgs.append(f"UI state ({n} keys)")
+            if do_parsed:
+                files, kb = clear_parsed_cache()
+                msgs.append(f"Parsed cache ({files} files, {_fmt_size(kb)})")
+                st.session_state["sheet_cache"] = {}
+            if do_hash:
+                n = clear_hash_store()
+                msgs.append(f"File history ({n} entries)")
+            if do_claim_dup:
+                n = clear_claim_dup_store()
+                msgs.append(f"Claim dups ({n} entries)")
+            if do_audit:
+                n = clear_audit_log()
+                msgs.append(f"Audit log ({n} events)")
+            if do_exports:
+                n = clear_export_table()
+                msgs.append(f"Export history ({n} entries)")
+            if msgs:
+                st.success("✅ Cleared: " + ", ".join(msgs))
+                st.rerun()
+            else:
+                st.warning("Nothing selected — tick at least one checkbox above.")
+    with col_close:
+        if st.button("Close", type="primary", use_container_width=True):
+            st.rerun()

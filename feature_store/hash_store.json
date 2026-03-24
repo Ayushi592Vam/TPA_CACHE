@@ -1,95 +1,9 @@
 {
-  "923b27474c6e473037084d61490f493f9614f62ef0356c07af50933cae96d6eb": {
+  "47f14b302b83b7b7409833a0f72996f8757168d2d40475bb984467f1bcbb09cd": {
     "filename": "loss_runs.xlsx",
-    "first_seen": "2026-03-17T12:22:26.469200",
-    "sheet_hashes": {
-      "CGL Loss Run": "8e86b40ef33d63701144ef5919a6b2db54e5812506ff6fc69473a2dac3ac8c34",
-      "Workers Comp Loss Run": "0cf7acbc8312cee26594d8ec3fbb7f2635030d2802b4372264792f948973eeb2",
-      "Commercial Auto Loss Run": "87934a2a9f86f24e3c091e7fadcca9de0af721bca1f4a338e3ee32bf70239539",
-      "Commercial Property Loss Run": "5ba16142b8e6b0e9b0d81b65a4c56690d150becdb4bf60fabb2c15e20ecd7e49",
-      "Prof Liability E&O Loss Run": "b0c7a8f9b38b33a7a3ded43a48b4d8c0277e29671be1c9c90c2b82125920adaf"
-    }
-  },
-  "399019b287a7f5ad70330e900fc4f67db327d30f82b7bf82963de883c1b5813f": {
-    "filename": "loss_runs.xlsx",
-    "first_seen": "2026-03-17T14:13:00.675834",
-    "sheet_hashes": {
-      "CGL Loss Run": "1975302483121bd5837966f7c4cd103d9d7a88fccb37c0c23649bb2058b0db28",
-      "Workers Comp Loss Run": "0cf7acbc8312cee26594d8ec3fbb7f2635030d2802b4372264792f948973eeb2",
-      "Commercial Auto Loss Run": "87934a2a9f86f24e3c091e7fadcca9de0af721bca1f4a338e3ee32bf70239539",
-      "Commercial Property Loss Run": "5ba16142b8e6b0e9b0d81b65a4c56690d150becdb4bf60fabb2c15e20ecd7e49",
-      "Prof Liability E&O Loss Run": "b0c7a8f9b38b33a7a3ded43a48b4d8c0277e29671be1c9c90c2b82125920adaf"
-    }
-  },
-  "3877ae3e8d89478062ffc226ae0b33904e5170820859924475720654ef120d72": {
-    "filename": "loss_runs.xlsx",
-    "first_seen": "2026-03-17T14:36:53.922625",
-    "sheet_hashes": {
-      "CGL Loss Run": "89b34c46da3bd36d259bb9225912bd025637ea9c16f1d3ac37fb9b1f3c814632",
-      "Workers Comp Loss Run": "0cf7acbc8312cee26594d8ec3fbb7f2635030d2802b4372264792f948973eeb2",
-      "Commercial Auto Loss Run": "87934a2a9f86f24e3c091e7fadcca9de0af721bca1f4a338e3ee32bf70239539",
-      "Commercial Property Loss Run": "5ba16142b8e6b0e9b0d81b65a4c56690d150becdb4bf60fabb2c15e20ecd7e49",
-      "Prof Liability E&O Loss Run": "b0c7a8f9b38b33a7a3ded43a48b4d8c0277e29671be1c9c90c2b82125920adaf"
-    }
-  },
-  "759eb999b7a6a85677a969a36d5a3ca4499442890deeded29f3186d65031adb3": {
-    "filename": "LRC.xlsx",
-    "first_seen": "2026-03-17T17:55:42.596097",
-    "sheet_hashes": {
-      "Loss Run": "b556740756f4fdf1c8597bcfdb106736075022200539a324772d8c32ab7702f8",
-      "Workers Comp Loss Run": "0cf7acbc8312cee26594d8ec3fbb7f2635030d2802b4372264792f948973eeb2",
-      "Commercial Auto Loss Run": "87934a2a9f86f24e3c091e7fadcca9de0af721bca1f4a338e3ee32bf70239539",
-      "Commercial Property Loss Run": "5ba16142b8e6b0e9b0d81b65a4c56690d150becdb4bf60fabb2c15e20ecd7e49",
-      "Prof Liability E&O Loss Run": "b0c7a8f9b38b33a7a3ded43a48b4d8c0277e29671be1c9c90c2b82125920adaf"
-    }
-  },
-  "ec2f29667314acf6bd9867436299866f40b8277825d27034013e80fe8812c109": {
-    "filename": "test_lossrun_homeowners_weird.xlsx",
-    "first_seen": "2026-03-17T17:56:13.703295",
-    "sheet_hashes": {
-      "HomeOwners Loss Run": "dece859954ab4045d48e34a255ac9d4d7fe7084492434744cfafee954fbf9d34"
-    }
-  },
-  "21959241d2316026fd42ea067b6cf07e1f44989c4366c1970ededd779a086558": {
-    "filename": "loss_runs.xlsx",
-    "first_seen": "2026-03-17T18:51:33.432154",
-    "sheet_hashes": {
-      "CGL Loss Run": "1fffb0035187e861a0bfe80b2ec817af77d630f817b17d91a1dee97dbcfac1e0",
-      "Workers Comp Loss Run": "0cf7acbc8312cee26594d8ec3fbb7f2635030d2802b4372264792f948973eeb2",
-      "Commercial Auto Loss Run": "87934a2a9f86f24e3c091e7fadcca9de0af721bca1f4a338e3ee32bf70239539",
-      "Commercial Property Loss Run": "5ba16142b8e6b0e9b0d81b65a4c56690d150becdb4bf60fabb2c15e20ecd7e49",
-      "Prof Liability E&O Loss Run": "b0c7a8f9b38b33a7a3ded43a48b4d8c0277e29671be1c9c90c2b82125920adaf"
-    }
-  },
-  "471f1df9dacaa6ad14f1c9d939678c7500489eec92814434f431991f2fe9b169": {
-    "filename": "loss_runs.xlsx",
-    "first_seen": "2026-03-17T19:07:33.705671",
+    "first_seen": "2026-03-23T17:40:03.683315",
     "sheet_hashes": {
       "CGL Loss Run": "0a53856501ec2c42f484328b7be87569ac8f90d6df3ccd7b9db90d0ad70c24de",
-      "Workers Comp Loss Run": "0cf7acbc8312cee26594d8ec3fbb7f2635030d2802b4372264792f948973eeb2",
-      "Commercial Auto Loss Run": "87934a2a9f86f24e3c091e7fadcca9de0af721bca1f4a338e3ee32bf70239539",
-      "Commercial Property Loss Run": "5ba16142b8e6b0e9b0d81b65a4c56690d150becdb4bf60fabb2c15e20ecd7e49",
-      "Prof Liability E&O Loss Run": "b0c7a8f9b38b33a7a3ded43a48b4d8c0277e29671be1c9c90c2b82125920adaf"
-    }
-  },
-  "940c63166233eb6988c3eb947de7cd159853a688a69782b379847de1fefdf251": {
-    "filename": "Copy of loss_runs 1 1.xlsx",
-    "first_seen": "2026-03-17T19:31:31.841512",
-    "sheet_hashes": {
-      "CGL Loss Run": "8e86b40ef33d63701144ef5919a6b2db54e5812506ff6fc69473a2dac3ac8c34",
-      "Workers Comp Loss Run": "0cf7acbc8312cee26594d8ec3fbb7f2635030d2802b4372264792f948973eeb2",
-      "Commercial Auto Loss Run": "87934a2a9f86f24e3c091e7fadcca9de0af721bca1f4a338e3ee32bf70239539",
-      "Commercial Property Loss Run": "5ba16142b8e6b0e9b0d81b65a4c56690d150becdb4bf60fabb2c15e20ecd7e49",
-      "Prof Liability E&O Loss Run": "b0c7a8f9b38b33a7a3ded43a48b4d8c0277e29671be1c9c90c2b82125920adaf"
-    }
-  },
-  "4ca1414761ea7cca4338340251e8b9ae59b235b777643161461c04bba020eaae": {
-    "filename": "loss_runs 1.xlsx",
-    "first_seen": "2026-03-17T19:32:12.496648",
-    "sheet_hashes": {
-      "Summary": "35011c52bf8d5c6b957527f9d1502beb6ae99f358ef152ca8332f52e3e4daa80",
-      "test run": "6fe4d937eb2f4ed3ddc969399b33147081b314a3020da9c03bc03463891816e7",
-      "CGL Loss Run": "8e86b40ef33d63701144ef5919a6b2db54e5812506ff6fc69473a2dac3ac8c34",
       "Workers Comp Loss Run": "0cf7acbc8312cee26594d8ec3fbb7f2635030d2802b4372264792f948973eeb2",
       "Commercial Auto Loss Run": "87934a2a9f86f24e3c091e7fadcca9de0af721bca1f4a338e3ee32bf70239539",
       "Commercial Property Loss Run": "5ba16142b8e6b0e9b0d81b65a4c56690d150becdb4bf60fabb2c15e20ecd7e49",
