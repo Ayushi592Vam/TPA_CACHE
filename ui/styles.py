@@ -216,10 +216,18 @@ div[data-testid="stCheckbox"] label{font-family:var(--font)!important;font-size:
 .col-summary-text{font-size:var(--sz-xs);color:var(--t2);font-family:var(--font);line-height:1.5}
 .llm-map-banner{background:rgba(245,200,66,.07);border:1px solid rgba(245,200,66,.25);border-left:3px solid var(--yellow);border-radius:var(--radius);padding:10px 14px;margin-bottom:12px}
 
-/* ── Tooltip / help text visibility fix ── */
-div[data-testid="stTooltipHoverTarget"]{display:inline-flex!important}
-div[role="tooltip"]{background:var(--s1)!important;border:1px solid var(--b1)!important;border-radius:var(--radius)!important;color:var(--t0)!important;font-family:var(--font)!important;font-size:var(--sz-xs)!important;padding:6px 10px!important;box-shadow:var(--shadow)!important;max-width:220px!important;z-index:9999!important}
-div[role="tooltip"] p{color:var(--t0)!important;font-size:var(--sz-xs)!important;margin:0!important}
+/* ── Tooltip nuclear fix ── */
+div[role="tooltip"],
+div[role="tooltip"] *,
+div[role="tooltip"] p,
+div[role="tooltip"] span,
+div[role="tooltip"] div{
+    background:#1e1e32!important;
+    color:#ffffff!important;
+    -webkit-text-fill-color:#ffffff!important;
+    font-family:var(--font)!important;
+    font-size:12px!important;
+}
 
 </style>
 """
