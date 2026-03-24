@@ -17,7 +17,7 @@ else:
         load_dotenv(_found, override=True)
 
 import streamlit as st
-t.set_page_config(layout="wide") st.dataframe( df, use_container_width=True, column_config={ "Date Reported": st.column_config.Column(width="large") } )
+
 
 from config.settings import SESSION_DEFAULTS
 from config.schemas import SCHEMAS, _CONFIG_LOAD_STATUS
