@@ -1,4 +1,4 @@
-
+"""
 import csv
 import datetime
 
@@ -599,3 +599,633 @@ def show_cache_manager_dialog() -> None:
     with col_close:
         if st.button("Close", type="primary", use_container_width=True):
             st.rerun()
+            """
+
+"""
+ui/dialogs.py
+All @st.dialog popups:
+  - show_eye_popup         — cell-view with Excel highlight
+  - show_field_history_dialog — per-field edit timeline
+  - show_settings_dialog   — conf threshold + schema manager
+  - show_schema_fields_dialog — required / accepted / custom field viewer
+"""
+
+import csv
+import datetime
+
+import streamlit as st
+from openpyxl.utils import get_column_letter
+from PIL import ImageDraw
+
+from modules.field_history import _get_field_history
+from modules.excel_renderer import (
+    render_excel_sheet, get_cell_pixel_bbox, crop_context,
+)
+
+
+# ── Eye popup ─────────────────────────────────────────────────────────────────
+
+@st.dialog("Cell View", width="large")
+def show_eye_popup(field: str, info: dict, excel_path: str, sheet_name: str) -> None:
+    import os
+    # Always show BOTH raw extracted value AND current modified value in full
+    raw_value  = info.get("value", "") or ""
+    mod_value  = info.get("modified", raw_value) or raw_value
+    target_row = info.get("excel_row")
+    target_col = info.get("excel_col")
+
+    st.markdown(f"### 📍 {field}")
+
+    # ── Full value display — guaranteed no truncation ─────────────────────────
+    def _val_box(label: str, val: str, color: str = "#4f9cf9"):
+        _empty_html = "<span style='color:#555;'>( empty )</span>"
+        _content    = val if val else _empty_html
+        st.markdown(
+            f"<div style='margin-bottom:12px;'>"
+            f"<div style='font-size:10px;font-weight:700;color:{color};font-family:monospace;"
+            f"text-transform:uppercase;letter-spacing:1.2px;margin-bottom:5px;'>{label}</div>"
+            f"<div style='background:#12121c;border:1px solid #2a2a45;border-radius:6px;"
+            f"padding:12px 14px;font-family:Consolas,monospace;font-size:13px;"
+            f"color:#e8e7ff;word-break:break-all;white-space:pre-wrap;"
+            f"max-height:200px;overflow-y:auto;line-height:1.6;'>"
+            f"{_content}"
+            f"</div></div>",
+            unsafe_allow_html=True,
+        )
+
+    _val_box("Extracted Value (raw from file)", raw_value, "#34d399")
+    if mod_value and mod_value != raw_value:
+        _val_box("Modified Value (user edited)", mod_value, "#f5c842")
+
+    # ── Cell location ─────────────────────────────────────────────────────────
+    if target_row and target_col:
+        col_letter = get_column_letter(target_col)
+        st.markdown(
+            f"<div style='font-size:12px;color:#a0a0c8;font-family:monospace;margin-bottom:12px;'>"
+            f"📌 Cell <b style='color:#4f9cf9;'>{col_letter}{target_row}</b>"
+            f" &nbsp;·&nbsp; Row {target_row} &nbsp;·&nbsp; Col {target_col}"
+            f"</div>",
+            unsafe_allow_html=True,
+        )
+    else:
+        st.warning("No cell location recorded for this field.")
+        return
+
+    ext = os.path.splitext(excel_path)[1].lower()
+    st.markdown("---")
+
+    if ext == ".csv":
+        try:
+            with open(excel_path, "r", encoding="utf-8-sig") as f:
+                all_rows = list(csv.reader(f))
+            if not all_rows:
+                return
+            n_rows = len(all_rows)
+            n_cols = max(len(r) for r in all_rows)
+            r0, r1 = max(0, target_row - 4), min(n_rows, target_row + 4)
+
+            col_headers = "".join(
+                f"<th style='background:#1a1a2e;color:#6b7280;font-size:11px;"
+                f"padding:5px 10px;border:1px solid #2a2a45;font-family:monospace;"
+                f"font-weight:600;text-align:center;'>{get_column_letter(c+1)}</th>"
+                for c in range(n_cols)
+            )
+            thead = (
+                f"<thead><tr>"
+                f"<th style='background:#1a1a2e;color:#6b7280;font-size:11px;"
+                f"padding:5px 8px;border:1px solid #2a2a45;font-family:monospace;'>#</th>"
+                f"{col_headers}</tr></thead>"
+            )
+            tbody = ""
+            for r_idx in range(r0, r1):
+                row_data = all_rows[r_idx] if r_idx < len(all_rows) else []
+                is_tr = (r_idx + 1 == target_row)
+                rn_bg = "#1a2540" if is_tr else "#12121c"
+                rn_color = "#4f9cf9" if is_tr else "#555"
+                cells = (
+                    f"<td style='background:{rn_bg};color:{rn_color};font-size:11px;"
+                    f"padding:5px 8px;border:1px solid #2a2a45;font-family:monospace;"
+                    f"font-weight:bold;text-align:center;'>{r_idx+1}</td>"
+                )
+                for c_idx in range(n_cols):
+                    cell_val = row_data[c_idx] if c_idx < len(row_data) else ""
+                    is_tc = is_tr and (c_idx + 1 == target_col)
+                    if is_tc:
+                        # Target cell — highlighted, full value, NO truncation
+                        style = ("background:#2a2010;border:2px solid #f5c842;"
+                                 "color:#fff;font-weight:bold;")
+                    elif is_tr:
+                        style = "background:#1a2540;border:1px solid rgba(79,156,249,0.3);color:#c8d8ff;"
+                    else:
+                        style = "background:#12121c;border:1px solid #2a2a45;color:#6b7280;"
+                    # No max-width, no overflow:hidden, no text-overflow:ellipsis
+                    cells += (
+                        f"<td style='{style}font-size:11px;padding:5px 10px;"
+                        f"white-space:normal;word-break:break-word;"
+                        f"font-family:monospace;'>{cell_val}</td>"
+                    )
+                tbody += f"<tr>{cells}</tr>"
+
+            st.markdown(
+                f"<div style='overflow-x:auto;border-radius:6px;border:1px solid #2a2a45;'>"
+                f"<table style='border-collapse:collapse;width:100%;'>"
+                f"{thead}<tbody>{tbody}</tbody></table></div>",
+                unsafe_allow_html=True,
+            )
+        except Exception as e:
+            st.error(f"CSV preview error: {e}")
+        return
+
+    # ── Excel image render ────────────────────────────────────────────────────
+    cache_key = f"_rendered_{excel_path}_{sheet_name}"
+    with st.spinner("Rendering sheet…"):
+        if cache_key not in st.session_state:
+            rendered_img, col_starts, row_starts, merged_master = render_excel_sheet(
+                excel_path, sheet_name, scale=1.0
+            )
+            st.session_state[cache_key] = (rendered_img, col_starts, row_starts, merged_master)
+        else:
+            rendered_img, col_starts, row_starts, merged_master = st.session_state[cache_key]
+
+    try:
+        img  = rendered_img.copy()
+        draw = ImageDraw.Draw(img, "RGBA")
+        x1, y1, x2, y2 = get_cell_pixel_bbox(col_starts, row_starts, target_row, target_col, merged_master)
+        draw.rectangle([x1+1, y1+1, x2-1, y2-1], fill=(255, 230, 0, 80))
+        draw.rectangle([x1, y1, x2, y2], outline=(245, 158, 11, 255), width=3)
+        draw.rectangle([x1+3, y1+3, x2-3, y2-3], outline=(255, 255, 255, 160), width=1)
+        cropped, _, _, _, _ = crop_context(img, x1, y1, x2, y2, pad_x=300, pad_y=200)
+        col_letter = get_column_letter(target_col)
+        st.image(cropped, use_container_width=True,
+                 caption=f"Cell {col_letter}{target_row} highlighted in yellow")
+    except Exception as e:
+        st.error(f"Rendering error: {e}")
+
+# ── Field history dialog ──────────────────────────────────────────────────────
+
+@st.dialog("Field History", width="large")
+def show_field_history_dialog(
+    field_name: str, sheet: str, claim_id: str,
+    current_val: str, original_val: str,
+) -> None:
+    st.markdown(f"### 📋 History — {field_name}")
+    history = _get_field_history(sheet, claim_id, field_name)
+
+    st.markdown(
+        f"""
+        <div style='background:var(--s0);border:1px solid var(--b0);border-radius:8px;
+             padding:12px 16px;margin-bottom:12px;'>
+          <div style='display:grid;grid-template-columns:1fr 1fr;gap:16px;'>
+            <div>
+              <div style='font-size:10px;color:var(--t3);font-family:monospace;text-transform:uppercase;
+                   letter-spacing:1px;margin-bottom:6px;'>Original (from file)</div>
+              <div style='background:#1a1a2e;border:1px solid #2a2a45;border-radius:5px;
+                   padding:8px 12px;font-family:monospace;font-size:13px;color:#f0efff;'>
+                {original_val or "(empty)"}
+              </div>
+            </div>
+            <div>
+              <div style='font-size:10px;color:var(--t3);font-family:monospace;text-transform:uppercase;
+                   letter-spacing:1px;margin-bottom:6px;'>Current Value</div>
+              <div style='background:#0f2d1f;border:1px solid rgba(52,211,153,0.35);border-radius:5px;
+                   padding:8px 12px;font-family:monospace;font-size:13px;color:#34d399;'>
+                {current_val or "(empty)"}
+              </div>
+            </div>
+          </div>
+          {"<div style='margin-top:8px;font-size:11px;color:#f5c842;font-family:monospace;'>⚡ Modified from original</div>" if current_val != original_val else "<div style='margin-top:8px;font-size:11px;color:#34d399;font-family:monospace;'>✓ Unchanged from original</div>"}
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    if history:
+        st.markdown("**Edit Timeline**")
+        for h in history:
+            arrow_col = "var(--yellow)" if h["source"] == "user" else "var(--blue)"
+            src_icon  = "✏" if h["source"] == "user" else "⚡"
+            src_lbl   = "Manual edit" if h["source"] == "user" else "Auto (LLM/normalize)"
+            st.markdown(
+                f"<div style='display:flex;align-items:flex-start;gap:12px;padding:10px 0;"
+                f"border-bottom:1px solid #1e1e32;'>"
+                f"<div style='font-size:10px;color:var(--t3);font-family:monospace;"
+                f"white-space:nowrap;margin-top:2px;'>{h['ts']}</div>"
+                f"<div style='flex:1;'>"
+                f"<div style='display:flex;align-items:center;gap:8px;margin-bottom:6px;'>"
+                f"<span style='color:{arrow_col};font-size:12px;'>{src_icon}</span>"
+                f"<span style='font-size:11px;color:var(--t3);font-family:monospace;'>{src_lbl}</span></div>"
+                f"<div style='display:flex;align-items:center;gap:8px;'>"
+                f"<code style='background:#1a1a2e;padding:3px 8px;border-radius:4px;font-size:12px;color:#f0efff;'>"
+                f"{h['from'] or '(empty)'}</code>"
+                f"<span style='color:{arrow_col};font-size:14px;'>→</span>"
+                f"<code style='background:#0f2d1f;padding:3px 8px;border-radius:4px;font-size:12px;color:#34d399;'>"
+                f"{h['to'] or '(empty)'}</code></div></div></div>",
+                unsafe_allow_html=True,
+            )
+    else:
+        st.markdown(
+            "<div style='color:var(--t3);font-size:13px;padding:12px 0;'>"
+            "No edits recorded yet for this field.</div>",
+            unsafe_allow_html=True,
+        )
+
+    if st.button("Close", type="primary", use_container_width=True):
+        st.rerun()
+
+
+# ── Settings dialog ───────────────────────────────────────────────────────────
+
+@st.dialog("Settings", width="large")
+def show_settings_dialog(schemas: dict, config_load_status: dict) -> None:
+    import os
+    from config.settings import CONFIG_DIR
+
+    st.markdown("### Configuration")
+    st.markdown("---")
+    st.markdown("#### Confidence Settings")
+
+    use_conf = st.checkbox(
+        "Enable confidence scoring display",
+        value=st.session_state.get("use_conf_threshold", False),
+        key="use_conf_toggle",
+        help="When enabled, shows confidence scores for each mapped field",
+    )
+    st.session_state["use_conf_threshold"] = use_conf
+
+    if use_conf:
+        conf = st.slider(
+            "Confidence threshold", 0, 100,
+            value=st.session_state.get("conf_threshold", 80),
+            step=5, format="%d%%",
+        )
+        st.session_state["conf_threshold"] = conf
+        bar_color = "#22c55e" if conf >= 70 else "#f59e0b" if conf >= 40 else "#ef4444"
+        level_txt = (
+            "High confidence — minimal manual review needed" if conf >= 70 else
+            "Medium — review flagged fields carefully" if conf >= 40 else
+            "Low — most fields will require manual review"
+        )
+        st.markdown(
+            f"<div class='conf-bar-wrap'><div class='conf-bar-fill' "
+            f"style='width:{conf}%;background:{bar_color};'></div></div>"
+            f"<div style='color:{bar_color};font-size:12px;margin-top:5px;'>{level_txt}</div>",
+            unsafe_allow_html=True,
+        )
+    else:
+        st.markdown(
+            "<div style='color:var(--t3);font-size:13px;font-family:monospace;'>"
+            "Confidence scoring is disabled. Enable above to show scores and set threshold.</div>",
+            unsafe_allow_html=True,
+        )
+
+    st.markdown("---")
+    st.markdown("#### Export Schema")
+    active_schema = st.session_state.get("active_schema", None)
+
+    for schema_name, schema_def in schemas.items():
+        is_active   = active_schema == schema_name
+        border_col  = schema_def["color"] if is_active else "#2a2a3e"
+        bg_col      = "#1a1a2e" if is_active else "#16161e"
+        active_tag  = (
+            f"<span style='font-size:10px;color:{schema_def['color']};margin-left:8px;font-weight:bold;'>● ACTIVE</span>"
+            if is_active else ""
+        )
+        custom_count = len(st.session_state.get(f"custom_fields_{schema_name}", []))
+        st.markdown(
+            f"<div style='background:{bg_col};border:1px solid {border_col};border-radius:8px;"
+            f"padding:12px 14px;margin-bottom:4px;'>"
+            f"<div style='display:flex;align-items:center;'>"
+            f"<span style='font-size:var(--sz-body);font-weight:700;color:var(--t0);font-family:var(--font);'>"
+            f"{schema_def['icon']} {schema_name}</span>"
+            f"<span style='font-size:var(--sz-sm);color:var(--t3);margin-left:8px;font-family:var(--font);'>"
+            f"{schema_def['version']}</span>{active_tag}</div>"
+            f"<div style='font-size:var(--sz-sm);color:var(--t2);margin-top:4px;font-family:var(--font);'>"
+            f"{schema_def['description']}</div></div>",
+            unsafe_allow_html=True,
+        )
+        bc1, bc2, bc3 = st.columns([1, 1, 1])
+        with bc1:
+            if st.button(
+                "✓ Deactivate" if is_active else "Activate",
+                key=f"activate_{schema_name}", use_container_width=True,
+            ):
+                st.session_state["active_schema"] = None if is_active else schema_name
+                st.rerun()
+        with bc2:
+            if st.button("View Fields", key=f"view_{schema_name}", use_container_width=True):
+                st.session_state["schema_popup_target"] = schema_name
+                st.session_state["schema_popup_tab"]    = "required"
+                st.rerun()
+        with bc3:
+            if st.button(
+                f"Custom Fields ({custom_count})",
+                key=f"custom_{schema_name}", use_container_width=True,
+            ):
+                st.session_state["schema_popup_target"] = schema_name
+                st.session_state["schema_popup_tab"]    = "custom"
+                st.rerun()
+        st.markdown("<div style='height:6px;'></div>", unsafe_allow_html=True)
+
+    st.markdown("---")
+    st.markdown("#### 📁 YAML Config Files")
+    st.markdown(
+        f"<div style='color:var(--t2);font-size:var(--sz-body);margin-bottom:10px;font-family:var(--font);'>"
+        f"Config directory: <code>{CONFIG_DIR}</code></div>",
+        unsafe_allow_html=True,
+    )
+    for schema_name, status in config_load_status.items():
+        sc      = schemas.get(schema_name, {})
+        col_st  = sc.get("color", "#64748b")
+        badge   = (
+            "<span style='background:#0f2d1f;border:1px solid #22c55e;border-radius:4px;"
+            "padding:1px 7px;font-size:10px;color:#22c55e;'>✓ Loaded</span>"
+            if status["loaded"]
+            else
+            "<span style='background:#2d0f0f;border:1px solid #ef4444;border-radius:4px;"
+            "padding:1px 7px;font-size:10px;color:#ef4444;'>✗ Not found — using defaults</span>"
+        )
+        st.markdown(
+            f"<div style='background:var(--s0);border:1px solid var(--b0);border-radius:6px;"
+            f"padding:10px 14px;margin-bottom:6px;'>"
+            f"<div style='display:flex;align-items:center;gap:10px;'>"
+            f"<span style='color:{col_st};font-weight:700;font-size:var(--sz-body);font-family:var(--font);'>"
+            f"{sc.get('icon','')} {schema_name}</span>{badge}</div>"
+            f"<div style='font-size:var(--sz-xs);color:var(--t3);margin-top:4px;font-family:var(--font);'>"
+            f"📄 {status['file']}</div></div>",
+            unsafe_allow_html=True,
+        )
+
+    if st.button("🔄 Reload YAML Configs", use_container_width=True, key="reload_yaml_cfg"):
+        from config.schemas import _load_all_configs, _HARDCODED_SCHEMAS
+        import config.schemas as _cs
+        _cs.SCHEMAS = _load_all_configs(_HARDCODED_SCHEMAS)
+        st.session_state["sheet_cache"] = {}
+        st.success("✅ Configs reloaded")
+        st.rerun()
+
+    st.markdown("---")
+    r1, r2 = st.columns(2)
+    with r1:
+        if st.button("Reset Defaults", use_container_width=True, key="reset_defaults_btn"):
+            st.session_state["conf_threshold"]     = 80
+            st.session_state["use_conf_threshold"] = False
+            st.session_state["active_schema"]      = None
+            for s in schemas:
+                st.session_state[f"custom_fields_{s}"] = []
+            st.rerun()
+    with r2:
+        if st.button("Close", type="primary", use_container_width=True):
+            st.rerun()
+
+
+# ── Schema field manager dialog ───────────────────────────────────────────────
+
+@st.dialog("Schema Field Manager", width="large")
+def show_schema_fields_dialog(schema_name: str, schemas: dict) -> None:
+    schema     = schemas[schema_name]
+    custom_key = f"custom_fields_{schema_name}"
+    if custom_key not in st.session_state:
+        st.session_state[custom_key] = []
+
+    st.markdown(f"### {schema['icon']} {schema_name} — {schema['version']}")
+    st.markdown(
+        f"<div style='color:var(--t2);font-size:var(--sz-body);margin-bottom:14px;font-family:var(--font);'>"
+        f"{schema['description']}</div>",
+        unsafe_allow_html=True,
+    )
+    tab_req, tab_accepted, tab_custom = st.tabs(["Mandatory Fields", "All Accepted Fields", "My Custom Fields"])
+
+    with tab_req:
+        pills = "".join(
+            f"<span class='field-pill field-pill-required'>✓ {f}</span>"
+            for f in schema["required_fields"]
+        )
+        st.markdown(f"<div style='margin:12px 0;'>{pills}</div>", unsafe_allow_html=True)
+
+    with tab_accepted:
+        optional  = [f for f in schema["accepted_fields"] if f not in schema["required_fields"]]
+        req_pills = "".join(f"<span class='field-pill field-pill-required'>✓ {f}</span>" for f in schema["required_fields"])
+        opt_pills = "".join(f"<span class='field-pill'>{f}</span>" for f in optional)
+        st.markdown(
+            f"<div style='margin:12px 0;'>"
+            f"<b style='color:var(--t2);font-size:var(--sz-xs);font-family:var(--font);letter-spacing:1.2px;"
+            f"text-transform:uppercase;'>MANDATORY</b>"
+            f"<br><div style='margin-top:6px;'>{req_pills}</div></div>"
+            f"<div style='margin:12px 0;'>"
+            f"<b style='color:var(--t2);font-size:var(--sz-xs);font-family:var(--font);letter-spacing:1.2px;"
+            f"text-transform:uppercase;'>OPTIONAL</b>"
+            f"<br><div style='margin-top:6px;'>{opt_pills}</div></div>",
+            unsafe_allow_html=True,
+        )
+
+    with tab_custom:
+        custom_fields = st.session_state[custom_key]
+        already_added = set(custom_fields) | set(schema["required_fields"])
+        available     = [f for f in schema["accepted_fields"] if f not in already_added]
+
+        if available:
+            sel_col, add_col = st.columns([4, 1])
+            with sel_col:
+                chosen = st.selectbox(
+                    "Pick field",
+                    ["— select a field —"] + available,
+                    key=f"new_field_sel_{schema_name}",
+                    label_visibility="collapsed",
+                )
+            with add_col:
+                if st.button("Add", key=f"add_field_btn_{schema_name}", use_container_width=True, type="primary"):
+                    if chosen and chosen != "— select a field —":
+                        st.session_state[custom_key].append(chosen)
+                        st.rerun()
+
+        if not custom_fields:
+            st.markdown(
+                "<div style='color:var(--t2);font-size:var(--sz-body);padding:10px 0;font-family:var(--font);'>"
+                "No optional fields added yet.</div>",
+                unsafe_allow_html=True,
+            )
+        else:
+            for idx, cf in enumerate(list(custom_fields)):
+                cf1, cf2 = st.columns([5, 1])
+                with cf1:
+                    cls = "field-pill-required" if cf in schema["required_fields"] else "field-pill-custom"
+                    icon = "✓" if cf in schema["required_fields"] else "+"
+                    st.markdown(f"<span class='field-pill {cls}'>{icon} {cf}</span>", unsafe_allow_html=True)
+                with cf2:
+                    if st.button("Remove", key=f"del_cf_{schema_name}_{idx}", use_container_width=True):
+                        st.session_state[custom_key].pop(idx)
+                        st.rerun()
+            st.markdown("---")
+            if st.button(f"Clear All", key=f"clear_all_{schema_name}"):
+                st.session_state[custom_key] = []
+                st.rerun()
+
+        total = len(schema["required_fields"]) + len(custom_fields)
+        st.markdown(
+            f"<div style='background:var(--s0);border:1px solid var(--b0);border-radius:8px;"
+            f"padding:10px 16px;'>"
+            f"<span style='color:var(--t2);font-size:var(--sz-body);font-family:var(--font);'>"
+            f"Mandatory: <b style='color:var(--blue);'>{len(schema['required_fields'])}</b>"
+            f" &nbsp;|&nbsp; Custom: <b style='color:var(--green);'>{len(custom_fields)}</b>"
+            f" &nbsp;|&nbsp; Total: <b style='color:var(--t0);'>{total}</b></span></div>",
+            unsafe_allow_html=True,
+        )
+
+
+# ── Cache Manager dialog ──────────────────────────────────────────────────────
+
+@st.dialog("Cache Manager", width="large")
+def show_cache_manager_dialog() -> None:
+    from modules.cache_manager import (
+        get_cache_stats, clear_session_cache, clear_parsed_cache,
+        clear_hash_store, clear_claim_dup_store,
+        clear_audit_log, clear_export_table, _fmt_size,
+    )
+
+    st.markdown("### 🗄️ Cache Manager")
+    st.markdown(
+        "<div style='font-size:13px;color:#a0a0c8;margin-bottom:16px;'>"
+        "View and selectively clear each cache layer. "
+        "This does not affect your uploaded files.</div>",
+        unsafe_allow_html=True,
+    )
+
+    # ── Live stats ────────────────────────────────────────────────────────────
+    stats = get_cache_stats()
+
+    def _stat_row(label, detail, color="#4f9cf9"):
+        st.markdown(
+            f"<div style='display:flex;justify-content:space-between;align-items:center;"
+            f"background:#17172a;border:1px solid #2a2a45;border-radius:6px;"
+            f"padding:10px 14px;margin-bottom:6px;'>"
+            f"<div style='font-size:13px;font-weight:600;color:#e8e7ff;'>{label}</div>"
+            f"<div style='font-size:12px;font-family:monospace;color:{color};'>{detail}</div>"
+            f"</div>",
+            unsafe_allow_html=True,
+        )
+
+    _stat_row("Parsed Sheet Cache",
+              f"{stats['parsed']['files']} file(s) · {_fmt_size(stats['parsed']['size_kb'])}",
+              "#34d399" if stats['parsed']['files'] > 0 else "#64748b")
+    _stat_row("File Hash Store (Duplicate Memory)",
+              f"{stats['hash_store']['entries']} file(s) tracked",
+              "#f5c842" if stats['hash_store']['entries'] > 0 else "#64748b")
+    _stat_row("Claim Duplicate Store",
+              f"{stats['claim_dups']['entries']} claim(s) tracked",
+              "#f87171" if stats['claim_dups']['entries'] > 0 else "#64748b")
+    _stat_row("Audit Log",
+              f"{stats['audit_log']['entries']} event(s) recorded",
+              "#a78bfa" if stats['audit_log']['entries'] > 0 else "#64748b")
+    _stat_row("Export History",
+              f"{stats['export_table']['entries']} export(s) recorded",
+              "#4f9cf9" if stats['export_table']['entries'] > 0 else "#64748b")
+
+    st.markdown("---")
+    st.markdown(
+        "<div style='font-size:12px;color:#a0a0c8;margin-bottom:10px;font-family:monospace;"
+        "text-transform:uppercase;letter-spacing:1px;'>Select what to clear</div>",
+        unsafe_allow_html=True,
+    )
+
+    # ── Checkboxes ────────────────────────────────────────────────────────────
+    c1, c2 = st.columns(2)
+    with c1:
+        do_session   = st.checkbox("UI Session State", value=True,
+                                   help="Clears all in-memory selections, modified values, and panel states")
+        do_parsed    = st.checkbox("Parsed Sheet Cache", value=False,
+                                   help="Deletes cached JSON from feature_store/claims_json/ — next upload re-parses from scratch")
+        do_hash      = st.checkbox("File Duplicate Memory", value=False,
+                                   help="Resets hash_store.json — all files will be treated as NEW on next upload")
+    with c2:
+        do_claim_dup = st.checkbox("Claim Duplicate Store", value=False,
+                                   help="Resets claim_dup_store.json — claim change tracking starts fresh")
+        do_audit     = st.checkbox("Audit Log", value=False,
+                                   help="Clears audit_log.json — all event history is lost")
+        do_exports   = st.checkbox("Export History", value=False,
+                                   help="Clears json_export_table.json — export records are removed")
+
+    st.markdown("---")
+
+    # ── Quick presets ─────────────────────────────────────────────────────────
+    st.markdown(
+        "<div style='font-size:12px;color:#a0a0c8;margin-bottom:8px;font-family:monospace;"
+        "text-transform:uppercase;letter-spacing:1px;'>Quick presets</div>",
+        unsafe_allow_html=True,
+    )
+    p1, p2, p3 = st.columns(3)
+    with p1:
+        if st.button("🔄 Soft Reset", use_container_width=True,
+                     help="Clears UI state only — keeps all file history and cache on disk"):
+            cleared = clear_session_cache(st.session_state)
+            st.success(f"✅ UI state cleared ({cleared} keys removed)")
+            st.rerun()
+    with p2:
+        if st.button("📁 Clear File History", use_container_width=True,
+                     help="Resets duplicate memory so all files appear as NEW"):
+            n_hash = clear_hash_store()
+            n_dup  = clear_claim_dup_store()
+            st.session_state["sheet_cache"] = {}
+            st.success(f"✅ File history cleared ({n_hash} files, {n_dup} claims reset)")
+            st.rerun()
+    with p3:
+        if st.button("🗑️ Full Reset", use_container_width=True,
+                     help="Clears everything — session state, parsed cache, file history, claim tracking",
+                     type="primary"):
+            st.session_state["_confirm_full_reset"] = True
+            st.rerun()
+
+    # Confirm full reset
+    if st.session_state.get("_confirm_full_reset"):
+        st.warning("⚠️ **This will clear ALL cache layers.** Are you sure?")
+        yes_col, no_col = st.columns(2)
+        with yes_col:
+            if st.button("Yes, clear everything", type="primary", use_container_width=True):
+                clear_session_cache(st.session_state)
+                clear_parsed_cache()
+                clear_hash_store()
+                clear_claim_dup_store()
+                clear_audit_log()
+                clear_export_table()
+                st.session_state["_confirm_full_reset"] = False
+                st.success("✅ All cache layers cleared. Upload a fresh file to begin.")
+                st.rerun()
+        with no_col:
+            if st.button("Cancel", use_container_width=True):
+                st.session_state["_confirm_full_reset"] = False
+                st.rerun()
+
+    st.markdown("---")
+
+    # ── Custom clear button ───────────────────────────────────────────────────
+    col_clear, col_close = st.columns(2)
+    with col_clear:
+        if st.button("🗑️ Clear Selected", use_container_width=True):
+            msgs = []
+            if do_session:
+                n = clear_session_cache(st.session_state)
+                msgs.append(f"UI state ({n} keys)")
+            if do_parsed:
+                files, kb = clear_parsed_cache()
+                msgs.append(f"Parsed cache ({files} files, {_fmt_size(kb)})")
+                st.session_state["sheet_cache"] = {}
+            if do_hash:
+                n = clear_hash_store()
+                msgs.append(f"File history ({n} entries)")
+            if do_claim_dup:
+                n = clear_claim_dup_store()
+                msgs.append(f"Claim dups ({n} entries)")
+            if do_audit:
+                n = clear_audit_log()
+                msgs.append(f"Audit log ({n} events)")
+            if do_exports:
+                n = clear_export_table()
+                msgs.append(f"Export history ({n} entries)")
+            if msgs:
+                st.success("✅ Cleared: " + ", ".join(msgs))
+                st.rerun()
+            else:
+                st.warning("Nothing selected — tick at least one checkbox above.")
+    with col_close:
+        if st.button("Close", type="primary", use_container_width=True):
+            st.rerun()
+
